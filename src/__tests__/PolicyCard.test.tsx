@@ -29,22 +29,32 @@ describe('PolicyCard Component', () => {
     expect(screen.getByText('Cybersecurity Act 2023')).toBeInTheDocument();
   });
 
-  it('renders policy country', () => {
+  // Country and year share one subtitle line: "Kenya • 2023".
+  it('renders policy country in the subtitle', () => {
     render(
       <BrowserRouter>
         <PolicyCard policy={mockPolicy} />
       </BrowserRouter>
     );
-    expect(screen.getByText('Kenya')).toBeInTheDocument();
+    expect(screen.getByText(/^Kenya\s•\s2023$/)).toBeInTheDocument();
   });
 
-  it('renders policy year', () => {
+  it('prefers the organization over the country in the subtitle', () => {
+    render(
+      <BrowserRouter>
+        <PolicyCard policy={{ ...mockPolicy, organization: 'African Union' }} />
+      </BrowserRouter>
+    );
+    expect(screen.getByText(/^African Union\s•\s2023$/)).toBeInTheDocument();
+  });
+
+  it('renders policy year in the subtitle', () => {
     render(
       <BrowserRouter>
         <PolicyCard policy={mockPolicy} />
       </BrowserRouter>
     );
-    expect(screen.getByText('2023')).toBeInTheDocument();
+    expect(screen.getByText(/•\s2023$/)).toBeInTheDocument();
   });
 
   it('renders policy summary', () => {
@@ -64,8 +74,32 @@ describe('PolicyCard Component', () => {
         <PolicyCard policy={mockPolicy} />
       </BrowserRouter>
     );
-    const downloadLink = screen.getByRole('link', { name: /download/i });
+    // Visible text is "PDF"; "Download PDF" is the tooltip.
+    const downloadLink = screen.getByTitle('Download PDF');
     expect(downloadLink).toHaveAttribute('href', '/files/test.pdf');
+    expect(downloadLink).toHaveAttribute('download');
+  });
+
+  it('renders a preview link that opens in a new tab', () => {
+    render(
+      <BrowserRouter>
+        <PolicyCard policy={mockPolicy} />
+      </BrowserRouter>
+    );
+    const previewLink = screen.getByTitle('Preview document');
+    expect(previewLink).toHaveAttribute('href', '/files/test.pdf');
+    expect(previewLink).toHaveAttribute('target', '_blank');
+    expect(previewLink).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('renders the list variant with title and download link', () => {
+    render(
+      <BrowserRouter>
+        <PolicyCard policy={mockPolicy} variant="list" />
+      </BrowserRouter>
+    );
+    expect(screen.getByText('Cybersecurity Act 2023')).toBeInTheDocument();
+    expect(screen.getByTitle('Download PDF')).toHaveAttribute('href', '/files/test.pdf');
   });
 
   it('renders country flag', () => {

@@ -48,14 +48,25 @@ describe('EmptyState Component', () => {
     expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
   });
 
-  it('renders default icon when not provided', () => {
+  it('renders no icon when none is provided', () => {
+    // The icon is optional: EmptyState has no default icon.
     const { container } = render(
       <EmptyState
         title="Empty"
         description="Nothing here"
       />
     );
-    // Check for InboxIcon class
-    expect(container.querySelector('svg')).toBeInTheDocument();
+    expect(container.querySelector('svg')).not.toBeInTheDocument();
+  });
+
+  it('supports the legacy action object prop', () => {
+    render(
+      <EmptyState
+        title="Empty"
+        description="Nothing here"
+        action={{ label: 'Retry', onClick: () => {} }}
+      />
+    );
+    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
   });
 });

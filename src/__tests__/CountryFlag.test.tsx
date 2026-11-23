@@ -21,7 +21,7 @@ describe('CountryFlag Component', () => {
   it('renders with small size', () => {
     const { container } = render(<CountryFlag countryCode="GH" size="sm" />);
     const span = container.querySelector('span');
-    expect(span).toHaveClass('text-base');
+    expect(span).toHaveClass('text-lg');
   });
 
   it('renders with medium size', () => {

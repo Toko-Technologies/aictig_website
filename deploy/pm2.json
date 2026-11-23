@@ -1,0 +1,26 @@
+{
+  "apps": [
+    {
+      "name": "aictig-website",
+      "cwd": "/opt/aictig-website",
+      "script": "/usr/bin/node",
+      "args": "server.cjs",
+      "interpreter": "none",
+      "exec_mode": "fork",
+      "instances": 1,
+      "uid": "aictig-run",
+      "gid": "aictig-run",
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "500M",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 3001
+      },
+      "error_file": "/var/log/aictig-website/err.log",
+      "out_file": "/var/log/aictig-website/out.log",
+      "log_file": "/var/log/aictig-website/combined.log",
+      "time": true
+    }
+  ]
+}

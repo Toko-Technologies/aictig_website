@@ -1,24 +1,10 @@
-module.exports = {
-  apps: [{
-    name: 'aictig-website',
-    script: 'node',
-    args: 'server.cjs',
-    // Root-owned checkout. Not /home/aictig: the vhost user owns that and
-    // could swap the code PM2 runs as root. See deploy/aictig-deploy.sh.
-    cwd: '/opt/aictig-website',
-    instances: 1,
-    autorestart: true,
-    watch: false,
-    max_memory_restart: '500M',
-    env: {
-      NODE_ENV: 'production',
-      PORT: 3001
-    },
-    // Root-owned log dir: PM2 opens these as root, so they must not live in a
-    // directory the vhost user could plant a symlink in.
-    error_file: '/var/log/aictig-website/err.log',
-    out_file: '/var/log/aictig-website/out.log',
-    log_file: '/var/log/aictig-website/combined.log',
-    time: true
-  }]
-};
+/**
+ * PM2 definition for aictig-website. The single source is deploy/pm2.json.
+ *
+ * On the server PM2 is started from a ROOT-OWNED copy:
+ *   /etc/aictig-website/pm2.json   (installed from deploy/pm2.json)
+ * never from this file: PM2 runs as root and `require`s a .cjs config, and
+ * the checkout is owned by the unprivileged aictig-build user. JSON is parsed,
+ * not executed. See DEPLOYMENT.md section 9.
+ */
+module.exports = require('./deploy/pm2.json');

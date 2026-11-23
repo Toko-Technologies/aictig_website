@@ -7,8 +7,8 @@
 #     git push origin main:production
 #
 # How it is safe:
-#   - `verify` typechecks and builds on GitHub first. A commit that does not
-#     build never reaches the server.
+#   - `verify` runs the unit tests, typechecks and builds on GitHub first. A
+#     commit that fails any of them never reaches the server.
 #   - The SSH key in DEPLOY_SSH_KEY is pinned on the server to a FORCED
 #     COMMAND (/usr/local/sbin/aictig-deploy.sh) with `restrict`. Even if this
 #     secret leaked, it cannot open a shell, forward a port or read a file -
@@ -35,7 +35,7 @@ permissions:
 
 jobs:
   verify:
-    name: Typecheck and build
+    name: Test, typecheck and build
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -48,6 +48,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
+
+      - name: Unit tests
+        run: npx vitest run
 
       - name: Typecheck and build
         run: npm run build
