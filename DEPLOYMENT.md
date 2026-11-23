@@ -1,13 +1,11 @@
-cd /home/aictig/public_html && git pull origin main && npm run build && pm2 restart aictig-website
-
-
-cd /home/aictig/public_html && git stash && git pull origin main && npm install && npm run build && pm2 restart aictig-website
-
-
 # AICTiG Website — Deployment Guide
 
 **Stack:** Vite + React SPA → Express + PM2 (port 3001) → Apache reverse proxy (Virtualmin) → Contabo VPS  
 **Backend:** WordPress + WPGraphQL at `be.aictig.org` (proxied, never exposed to browser)
+
+> **Deploying a change:** `git push origin main:production`. That's it — see
+> [section 9](#9-update--redeploy-automatic). The app now lives in
+> `/opt/aictig-website` (root-owned), not `/home/aictig/public_html`.
 
 ---
 
@@ -102,17 +100,19 @@ git push -u origin main
 SSH into your VPS:
 
 ```bash
-# Clone the repo into public_html
-cd /home/aictig
-git clone https://github.com/danielishakutv/aictig_website.git public_html
+# Clone the production branch into a ROOT-OWNED directory (not /home/aictig:
+# the vhost user owns that and could swap code that PM2 runs as root)
+git clone -b production https://github.com/danielishakutv/aictig_website.git /opt/aictig-website
+chmod 750 /opt/aictig-website
 
 # Install dependencies and build
-cd /home/aictig/public_html
-npm install
+cd /opt/aictig-website
+npm ci
 npm run build
 ```
 
 The `npm run build` command produces a `dist/` folder. The Express server (`server.cjs`) serves it.
+Apache proxies to port 3001, so the checkout location does not matter to it.
 
 ---
 
@@ -128,7 +128,7 @@ pm2 -v
 ### 4.2 Create logs directory
 
 ```bash
-mkdir -p /home/aictig/logs
+install -d -m 750 -o root -g root /var/log/aictig-website
 ```
 
 ### 4.3 Start the app with PM2
@@ -136,7 +136,7 @@ mkdir -p /home/aictig/logs
 The project includes `ecosystem.config.cjs` which runs the Express server on port 3001:
 
 ```bash
-cd /home/aictig/public_html
+cd /opt/aictig-website
 pm2 start ecosystem.config.cjs
 pm2 status    # should show "aictig-website" as online
 ```
@@ -277,40 +277,61 @@ curl -s https://www.aictig.org/wp-graphql -X POST \
 
 ---
 
-## 9. Update / Redeploy
+## 9. Update / Redeploy (automatic)
 
-When you push new code to GitHub, deploy with:
-
-```bash
-cd /home/aictig/public_html && git pull && npm install && npm run build && pm2 restart aictig-website
-```
-
-### Quick deploy script (optional)
-
-Create `/home/aictig/deploy.sh`:
+Deploys are automatic (CI/CD via GitHub Actions). Work on `main` as usual;
+when you want it live:
 
 ```bash
-#!/bin/bash
-set -e
-cd /home/aictig/public_html
-echo "Pulling latest code..."
-git pull origin main
-echo "Installing dependencies..."
-npm install --production=false
-echo "Building..."
-npm run build
-echo "Restarting PM2..."
-pm2 restart aictig-website
-echo "✓ Deployed successfully at $(date)"
+git push origin main:production
 ```
 
-Make it executable:
+Or open **GitHub → Actions → Deploy to production → Run workflow** to redeploy
+without a push.
 
-```bash
-chmod +x /home/aictig/deploy.sh
-```
+### What happens
 
-Run it anytime: `bash /home/aictig/deploy.sh`
+1. **verify** (on GitHub): `npm ci` + `npm run build` (typecheck + vite). If the
+   commit does not build, it stops here and the server is never touched.
+2. **deploy**: GitHub SSHes into the VPS with a key that can do exactly one
+   thing — run `/usr/local/sbin/aictig-deploy.sh` (forced command). It:
+   - fast-forwards `/opt/aictig-website` to `origin/production`
+     (refuses if someone edited tracked files on the box),
+   - runs `npm ci` only if `package.json`/`package-lock.json` changed,
+   - builds into `dist.new`, then swaps it in for `dist` (the live site keeps
+     serving the old build until the new one is complete),
+   - `pm2 restart aictig-website`, then checks `127.0.0.1:3001` and its JS
+     bundle return 200,
+   - posts the result to the Telegram alerts group.
+3. The Action confirms `https://aictig.org/` and `https://www.aictig.org/`
+   return 200 from the public internet.
+
+### Pieces
+
+| What | Where |
+|---|---|
+| Workflow | `.github/workflows/deploy.yml` |
+| Server script (source) | `deploy/aictig-deploy.sh` |
+| Server script (installed) | `/usr/local/sbin/aictig-deploy.sh` |
+| Deploy log | `/var/log/aictig-deploy.log` |
+| App checkout | `/opt/aictig-website` (branch `production`) |
+| PM2 logs | `/var/log/aictig-website/` |
+| Repo secrets | `DEPLOY_SSH_KEY`, `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_KNOWN_HOSTS` |
+| CI key on server | `/root/.ssh/aictig_ci_deploy` (+ `authorized_keys` entry `github-actions-aictig-deploy`) |
+
+### Rules
+
+- **Rollback:** revert the bad commit on `main` and push it to `production`
+  again. The previous build is also kept at `/opt/aictig-website/.dist.old`.
+- **Don't edit files on the server.** The next deploy will stop and say so.
+- **Changing `deploy/aictig-deploy.sh`** does not update the server copy — on
+  purpose, so a push can never rewrite what the CI key runs. Reinstall by hand:
+  `install -m 700 -o root -g root deploy/aictig-deploy.sh /usr/local/sbin/aictig-deploy.sh`
+  (from a Linux checkout, or with CRLF stripped).
+- **Changing `ecosystem.config.cjs`** (port, log paths, memory limit) needs
+  `pm2 delete aictig-website && pm2 start /opt/aictig-website/ecosystem.config.cjs && pm2 save`
+  on the server; a normal deploy only restarts.
+- **Redeploy by hand** (on the server): `/usr/local/sbin/aictig-deploy.sh`
 
 ---
 

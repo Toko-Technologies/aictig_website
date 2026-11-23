@@ -3,7 +3,9 @@ module.exports = {
     name: 'aictig-website',
     script: 'node',
     args: 'server.cjs',
-    cwd: '/home/aictig/public_html',
+    // Root-owned checkout. Not /home/aictig: the vhost user owns that and
+    // could swap the code PM2 runs as root. See deploy/aictig-deploy.sh.
+    cwd: '/opt/aictig-website',
     instances: 1,
     autorestart: true,
     watch: false,
@@ -12,9 +14,11 @@ module.exports = {
       NODE_ENV: 'production',
       PORT: 3001
     },
-    error_file: '/home/aictig/logs/err.log',
-    out_file: '/home/aictig/logs/out.log',
-    log_file: '/home/aictig/logs/combined.log',
+    // Root-owned log dir: PM2 opens these as root, so they must not live in a
+    // directory the vhost user could plant a symlink in.
+    error_file: '/var/log/aictig-website/err.log',
+    out_file: '/var/log/aictig-website/out.log',
+    log_file: '/var/log/aictig-website/combined.log',
     time: true
   }]
 };
