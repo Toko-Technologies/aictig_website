@@ -102,7 +102,7 @@ SSH into your VPS:
 ```bash
 # Clone the production branch into a ROOT-OWNED directory (not /home/aictig:
 # the vhost user owns that and could swap code that PM2 runs as root)
-git clone -b production https://github.com/danielishakutv/aictig_website.git /opt/aictig-website
+git clone -b production https://github.com/Toko-Technologies/aictig_website.git /opt/aictig-website
 chmod 750 /opt/aictig-website
 
 # Install dependencies and build
