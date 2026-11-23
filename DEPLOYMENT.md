@@ -97,18 +97,29 @@ git push -u origin main
 
 ## 3. Clone & Build on the Server
 
-SSH into your VPS:
+The site is built and run by two dedicated, no-login users — never root, and
+never the Virtualmin vhost user `aictig`:
+
+| User | Does | Can write |
+|---|---|---|
+| `aictig-build` | git, `npm ci`, `npm run build` | `/opt/aictig-website`, `/var/lib/aictig-build` (npm cache) |
+| `aictig-run` | runs `server.cjs` (the live site) | nothing in the checkout |
+
+SSH into your VPS as root:
 
 ```bash
-# Clone the production branch into a ROOT-OWNED directory (not /home/aictig:
-# the vhost user owns that and could swap code that PM2 runs as root)
-git clone -b production https://github.com/Toko-Technologies/aictig_website.git /opt/aictig-website
-chmod 750 /opt/aictig-website
+# Users (one-time)
+useradd --system --user-group --home-dir /var/lib/aictig-build --no-create-home \
+        --shell /usr/sbin/nologin aictig-build
+install -d -m 750 -o aictig-build -g aictig-build /var/lib/aictig-build
+useradd --system --user-group --home-dir /nonexistent --no-create-home \
+        --shell /usr/sbin/nologin aictig-run
 
-# Install dependencies and build
-cd /opt/aictig-website
-npm ci
-npm run build
+# Checkout: owned by aictig-build; aictig-run may enter (group) but not write
+install -d -m 750 -o aictig-build -g aictig-run /opt/aictig-website
+B="setsid -w runuser -u aictig-build -- env -i HOME=/var/lib/aictig-build PATH=/usr/bin:/bin"
+$B git clone -b production https://github.com/Toko-Technologies/aictig_website.git /opt/aictig-website
+$B sh -c 'cd /opt/aictig-website && npm ci && npm run build'
 ```
 
 The `npm run build` command produces a `dist/` folder. The Express server (`server.cjs`) serves it.
@@ -131,23 +142,30 @@ pm2 -v
 install -d -m 750 -o root -g root /var/log/aictig-website
 ```
 
+PM2 (running as root) writes these logs itself; the site user cannot read them.
+
 ### 4.3 Start the app with PM2
 
-The project includes `ecosystem.config.cjs` which runs the Express server on port 3001:
+PM2 is started from a **root-owned copy** of `deploy/pm2.json`. Never run
+`pm2 start ecosystem.config.cjs` from the checkout as root: PM2 *executes* a
+`.cjs` config, and the checkout belongs to `aictig-build`. The JSON is only
+parsed, and it tells PM2 to drop to `aictig-run` before starting node.
 
 ```bash
-cd /opt/aictig-website
-pm2 start ecosystem.config.cjs
-pm2 status    # should show "aictig-website" as online
+install -d -m 755 /etc/aictig-website
+install -m 644 -o root -g root /opt/aictig-website/deploy/pm2.json /etc/aictig-website/pm2.json
+pm2 start /etc/aictig-website/pm2.json
+pm2 status                                          # "aictig-website" online
+ps -o user= -p "$(pm2 pid aictig-website)"          # must print: aictig-run
 ```
 
 ### 4.4 Auto-start PM2 on server reboot
 
 ```bash
-pm2 save
-pm2 startup
-# PM2 will print a sudo command — copy and run it, e.g.:
-# sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u aictig --hp /home/aictig
+pm2 save        # the saved list keeps uid/gid, so after a reboot the site
+                # comes back as aictig-run, not root
+# On this server PM2 is already enabled at boot as root (pm2-root.service),
+# shared with the other apps. On a fresh server: pm2 startup systemd
 ```
 
 ### 4.5 Verify the Node server is running
@@ -291,17 +309,26 @@ without a push.
 
 ### What happens
 
-1. **verify** (on GitHub): `npm ci` + `npm run build` (typecheck + vite). If the
-   commit does not build, it stops here and the server is never touched.
+1. **verify** (on GitHub): `npm ci`, unit tests (`vitest run`), then
+   `npm run build` (typecheck + vite). If any fails, it stops here and the
+   server is never touched.
 2. **deploy**: GitHub SSHes into the VPS with a key that can do exactly one
-   thing — run `/usr/local/sbin/aictig-deploy.sh` (forced command). It:
+   thing — run `/usr/local/sbin/aictig-deploy.sh` (forced command). As root it
+   only checks and restarts; every step that touches repository code runs as
+   `aictig-build`. It:
+   - verifies the trust chain (root-owned script and PM2 config; checkout
+     owned by `aictig-build` and not writable by `aictig-run`) — refuses if not,
    - fast-forwards `/opt/aictig-website` to `origin/production`
      (refuses if someone edited tracked files on the box),
    - runs `npm ci` only if `package.json`/`package-lock.json` changed,
-   - builds into `dist.new`, then swaps it in for `dist` (the live site keeps
-     serving the old build until the new one is complete),
-   - `pm2 restart aictig-website`, then checks `127.0.0.1:3001` and its JS
-     bundle return 200,
+   - builds into `dist.new`, then swaps it in for `dist`,
+   - **restarts the process only if `server.cjs` or dependencies changed.**
+     Otherwise there is no restart at all: Express reads `dist/` from disk on
+     every request, so the new build is live the moment it is swapped in —
+     zero downtime. A restart, when needed, is sub-second, and Apache's
+     `retry=0` stops it turning into a minute of 503s,
+   - checks the site returns 200, **serves the new bundle**, and that the
+     process runs as `aictig-run` with no root uid/gid/groups (from `/proc`),
    - posts the result to the Telegram alerts group.
 3. The Action confirms `https://aictig.org/` and `https://www.aictig.org/`
    return 200 from the public internet.
@@ -314,8 +341,12 @@ without a push.
 | Server script (source) | `deploy/aictig-deploy.sh` |
 | Server script (installed) | `/usr/local/sbin/aictig-deploy.sh` |
 | Deploy log | `/var/log/aictig-deploy.log` |
-| App checkout | `/opt/aictig-website` (branch `production`) |
+| App checkout | `/opt/aictig-website` (branch `production`), `aictig-build:aictig-run 750` |
+| PM2 definition (source) | `deploy/pm2.json` (`ecosystem.config.cjs` just re-exports it) |
+| PM2 definition (installed) | `/etc/aictig-website/pm2.json` (root, 644) |
+| Users | `aictig-build` (builds), `aictig-run` (runs the site) |
 | PM2 logs | `/var/log/aictig-website/` |
+| Apache vhost | `/etc/apache2/sites-available/aictig.org.conf` → `localhost:3001` with `retry=0` |
 | Repo secrets | `DEPLOY_SSH_KEY`, `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_KNOWN_HOSTS` |
 | CI key on server | `/root/.ssh/aictig_ci_deploy` (+ `authorized_keys` entry `github-actions-aictig-deploy`) |
 
@@ -324,14 +355,23 @@ without a push.
 - **Rollback:** revert the bad commit on `main` and push it to `production`
   again. The previous build is also kept at `/opt/aictig-website/.dist.old`.
 - **Don't edit files on the server.** The next deploy will stop and say so.
-- **Changing `deploy/aictig-deploy.sh`** does not update the server copy — on
-  purpose, so a push can never rewrite what the CI key runs. Reinstall by hand:
-  `install -m 700 -o root -g root deploy/aictig-deploy.sh /usr/local/sbin/aictig-deploy.sh`
-  (from a Linux checkout, or with CRLF stripped).
-- **Changing `ecosystem.config.cjs`** (port, log paths, memory limit) needs
-  `pm2 delete aictig-website && pm2 start /opt/aictig-website/ecosystem.config.cjs && pm2 save`
-  on the server; a normal deploy only restarts.
+- **Root-owned copies are never updated by a push** — on purpose, so a push can
+  never change what root runs. Every deploy compares them with the repo and says
+  `NOTE: ... differs` in its log and Telegram message until you install them.
+  After the change has been deployed (so it is in the Linux checkout), review it, then:
+  - `deploy/aictig-deploy.sh`:
+    `install -m 700 -o root -g root /opt/aictig-website/deploy/aictig-deploy.sh /usr/local/sbin/aictig-deploy.sh`
+  - `deploy/pm2.json` (port, log paths, memory limit, users):
+    `install -m 644 -o root -g root /opt/aictig-website/deploy/pm2.json /etc/aictig-website/pm2.json`
+    then `pm2 delete aictig-website && pm2 start /etc/aictig-website/pm2.json && pm2 save`
+    (a sub-second gap; for zero downtime use the bridge procedure in
+    `/root/SERVER-RUNBOOK.md`, "aictig.org — unprivileged runtime").
+- **Never `pm2 start ecosystem.config.cjs` as root on the server** (see 4.3).
 - **Redeploy by hand** (on the server): `/usr/local/sbin/aictig-deploy.sh`
+  (`--restart` to force a process restart).
+- **Tailwind scans `src/**` including tests**, so a class-like word in a test
+  (e.g. `visible`) adds CSS to production. Harmless, but keep it in mind when a
+  "test-only" change produces new asset hashes.
 
 ---
 

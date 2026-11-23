@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import i18n from '../i18n';
 import Pagination from '../components/Pagination';
 
-// The buttons are labelled by their visible, translated text
+// The buttons are labelled by their on-screen, translated text
 // (common:actions.previous / actions.next), so load the real English strings.
 beforeAll(async () => {
   await i18n.changeLanguage('en');

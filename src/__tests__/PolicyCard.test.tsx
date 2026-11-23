@@ -74,7 +74,7 @@ describe('PolicyCard Component', () => {
         <PolicyCard policy={mockPolicy} />
       </BrowserRouter>
     );
-    // Visible text is "PDF"; "Download PDF" is the tooltip.
+    // The link reads "PDF" on screen; "Download PDF" is its title tooltip.
     const downloadLink = screen.getByTitle('Download PDF');
     expect(downloadLink).toHaveAttribute('href', '/files/test.pdf');
     expect(downloadLink).toHaveAttribute('download');

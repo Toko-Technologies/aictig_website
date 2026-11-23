@@ -64,10 +64,11 @@ esac
 
 exec > >(tee -a "$LOG") 2>&1
 echo "=============================================================="
+# GitHub Actions and a person both arrive over SSH; only the address differs.
 if [ -n "${SSH_CONNECTION:-}" ]; then
-  TRIGGERED_BY="CI from ${SSH_CONNECTION%% *}"
+  TRIGGERED_BY="ssh from ${SSH_CONNECTION%% *}"
 else
-  TRIGGERED_BY="hand"
+  TRIGGERED_BY="local shell"
 fi
 echo "deploy started $(date -Is) by ${TRIGGERED_BY}"
 
