@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import { Link } from 'react-router-dom'; // Hidden until team thumbnails are restored
 import {
   AcademicCapIcon,
   GlobeAltIcon,
@@ -9,9 +10,18 @@ import {
   BeakerIcon,
 } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import ExpertCard from '../components/ExpertCard';
+import { useTeam } from '../content/team';
 
 export default function About() {
   const { t } = useTranslation(['about', 'common']);
+  const { hash } = useLocation();
+  const team = useTeam();
+
+  // Support links such as /about#team (e.g. "Back to team" on expert pages).
+  useEffect(() => {
+    if (hash && team) document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [hash, team]);
 
   const missionItems = [
     {
@@ -35,47 +45,6 @@ export default function About() {
       description: t('about:mission.publications.description'),
     },
   ];
-
-  /* Team members data - hidden until proper team info is available
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'Dr. Anaya Okafor',
-      role: 'Executive Director',
-      bio: 'Leading cybersecurity policy research and African digital governance initiatives.',
-    },
-    {
-      id: 2,
-      name: 'Prof. Kwame Mensah',
-      role: 'Head of Research',
-      bio: 'Expert in AI governance and digital policy frameworks across Africa.',
-    },
-    {
-      id: 3,
-      name: 'Dr. Fatima Al-Rashid',
-      role: 'Policy Lead',
-      bio: 'Specializes in cybersecurity legislation and regulatory compliance.',
-    },
-    {
-      id: 4,
-      name: 'James Osei',
-      role: 'Senior Research Fellow',
-      bio: 'Focuses on data protection and privacy frameworks for African nations.',
-    },
-    {
-      id: 5,
-      name: 'Dr. Amina Hassan',
-      role: 'Consultant - Capacity Building',
-      bio: 'Leads training programs and stakeholder engagement initiatives.',
-    },
-    {
-      id: 6,
-      name: 'Marcus Juma',
-      role: 'Communications Director',
-      bio: 'Manages publications and knowledge dissemination across the continent.',
-    },
-  ];
-  */
 
   return (
     <>
@@ -169,52 +138,19 @@ export default function About() {
         </section>
 
         {/* Team section */}
-        <section className="py-16 bg-neutral-100">
+        <section id="team" className="py-16 bg-neutral-100 scroll-mt-24">
           <div className="container-custom">
             <h2 className="text-3xl font-bold text-neutral-900 mb-4 text-center">
               {t('about:team.title')}
             </h2>
-            <div className="bg-white rounded-lg shadow-md p-8 md:p-12 max-w-3xl mx-auto text-center">
-              <p className="text-lg text-neutral-700 leading-relaxed">
-                Our team comprises seasoned professionals and experts from diverse industries including cybersecurity, telecommunications, law, public policy, academia, and technology. With deep expertise spanning research, regulatory affairs, capacity building, and digital governance, our multidisciplinary team is committed to advancing cybersecurity and ICT governance across Africa.
-              </p>
+            <p className="text-lg text-neutral-700 leading-relaxed max-w-3xl mx-auto text-center mb-12">
+              {t('about:team.intro')}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+              {(team ?? []).map((expert) => (
+                <ExpertCard key={expert.slug} expert={expert} />
+              ))}
             </div>
-            {/* Team member thumbnails hidden until proper team info is available
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member) => {
-                const initials = member.name
-                  .split(' ')
-                  .map(n => n[0])
-                  .join('')
-                  .toUpperCase();
-                
-                return (
-                  <Link
-                    key={member.id}
-                    to={`/experts/${member.id}`}
-                    className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow focus-ring rounded"
-                  >
-                    <div className="aspect-square overflow-hidden bg-gradient-to-br from-primary-400 to-secondary-500 flex items-center justify-center">
-                      <span className="text-6xl font-bold text-white opacity-90 group-hover:opacity-100 transition-opacity">
-                        {initials}
-                      </span>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-neutral-900 mb-1 group-hover:text-primary-600 transition-colors">
-                        {member.name}
-                      </h3>
-                      <p className="text-primary-600 font-semibold text-sm mb-3">
-                        {member.role}
-                      </p>
-                      <p className="text-neutral-600 text-sm leading-relaxed">
-                        {member.bio}
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-            */}
           </div>
         </section>
       </main>

@@ -43,5 +43,20 @@
   "meta": {
     "title": "Kuhusu AICTiG — Taasisi ya Kiafrika ya Usalama wa Mtandao na Utawala wa Tele-Informatics",
     "description": "Jifunze kuhusu dhamira ya AICTiG ya kuendeleza usalama wa mtandao na utawala wa TEHAMA barani Afrika kupitia utafiti, uchambuzi wa sera na ujenzi wa uwezo"
+  },
+  "experts": {
+    "backToTeam": "Rudi kwa timu",
+    "notFound": "Mtaalamu hakupatikana",
+    "biography": "Wasifu",
+    "areasOfExpertise": "Maeneo ya utaalamu",
+    "regionalFocus": "Kanda inayolengwa",
+    "projects": "Miradi",
+    "publications": "Machapisho",
+    "conferences": "Mikutano na mawasilisho",
+    "linkedin": "LinkedIn",
+    "googleScholar": "Google Scholar",
+    "otherExperts": "Wafahamu wengine katika timu yetu",
+    "viewProfile": "Tazama wasifu",
+    "photoAlt": "Picha ya {{name}}"
   }
 }

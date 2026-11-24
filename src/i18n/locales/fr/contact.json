@@ -11,7 +11,12 @@
     "message": "Message",
     "messagePlaceholder": "Dites-nous comment nous pouvons vous aider...",
     "submit": "Envoyer le message",
-    "submitting": "Envoi en cours..."
+    "submitting": "Envoi en cours...",
+    "title": "Envoyez-nous un message",
+    "intro": "Remplissez le formulaire et la bonne personne de notre équipe vous répondra.",
+    "privacy": "Nous utilisons vos coordonnées uniquement pour répondre à votre message.",
+    "privacyLink": "Politique de confidentialité",
+    "optional": "facultatif"
   },
   "topics": {
     "general": "Demande générale",
@@ -23,11 +28,14 @@
   },
   "success": {
     "title": "Message envoyé !",
-    "message": "Merci de nous avoir contactés. Nous vous répondrons bientôt."
+    "message": "Merci de nous avoir contactés. Nous vous répondrons bientôt.",
+    "again": "Envoyer un autre message"
   },
   "error": {
     "title": "Erreur",
-    "message": "Échec de l'envoi du message. Veuillez réessayer."
+    "message": "Échec de l'envoi du message. Veuillez réessayer.",
+    "tooMany": "Vous avez envoyé plusieurs messages en peu de temps. Veuillez réessayer plus tard ou nous écrire directement.",
+    "emailUs": "Vous pouvez aussi nous écrire à"
   },
   "info": {
     "title": "Coordonnées",
@@ -35,6 +43,15 @@
     "phone": "Téléphone",
     "address": "Adresse",
     "hours": "Heures d'ouverture",
-    "hoursValue": "Lundi - Vendredi, 9h00 - 17h00 (EAT)"
+    "hoursValue": "Lundi - Vendredi, 9h00 - 17h00 (EAT)",
+    "offices": "Nos bureaux",
+    "follow": "Suivez-nous",
+    "response": "Nous nous efforçons de répondre sous deux jours ouvrables."
+  },
+  "validation": {
+    "name": "Veuillez indiquer votre nom.",
+    "email": "Veuillez saisir une adresse e-mail valide.",
+    "topic": "Veuillez choisir un sujet.",
+    "message": "Veuillez écrire un message d'au moins 10 caractères."
   }
 }

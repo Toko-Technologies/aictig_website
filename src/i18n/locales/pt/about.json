@@ -43,5 +43,20 @@
   "meta": {
     "title": "Sobre o AICTiG — Instituto Africano para a Cibersegurança e Governança da Teleinformática",
     "description": "Saiba mais sobre a missão do AICTiG de avançar a cibersegurança e a governança das TIC em África através de pesquisa, análise de políticas e capacitação"
+  },
+  "experts": {
+    "backToTeam": "Voltar à equipa",
+    "notFound": "Especialista não encontrado",
+    "biography": "Biografia",
+    "areasOfExpertise": "Áreas de especialização",
+    "regionalFocus": "Foco regional",
+    "projects": "Projetos",
+    "publications": "Publicações",
+    "conferences": "Conferências e apresentações",
+    "linkedin": "LinkedIn",
+    "googleScholar": "Google Scholar",
+    "otherExperts": "Conheça o resto da nossa equipa",
+    "viewProfile": "Ver perfil",
+    "photoAlt": "Retrato de {{name}}"
   }
 }

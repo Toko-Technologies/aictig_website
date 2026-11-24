@@ -24,18 +24,22 @@ const FocusAreas = lazy(() => import('./pages/FocusAreas'));
 const Consultancy = lazy(() => import('./pages/Consultancy'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Legal = lazy(() => import('./pages/Legal'));
+const AdminApp = lazy(() => import('./admin/AdminApp'));
 
 // Initialize Matomo analytics (once, on app boot)
 initAnalytics();
 
+const isAdminPath = (pathname: string) => pathname === '/admin' || pathname.startsWith('/admin/');
+
 function ScrollToTop() {
   const { pathname } = useLocation();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    trackPageView(pathname, pathname);
+    // The private dashboard is not counted in the website statistics.
+    if (!isAdminPath(pathname)) trackPageView(pathname, pathname);
   }, [pathname]);
-  
+
   return null;
 }
 
@@ -51,6 +55,21 @@ function LoadingFallback() {
 }
 
 function AppRoutes() {
+  const { pathname } = useLocation();
+
+  // The admin dashboard has its own layout (no public header or footer).
+  if (isAdminPath(pathname)) {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            <Route path="/admin/*" element={<AdminApp />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -60,7 +79,7 @@ function AppRoutes() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/experts/:id" element={<Expert />} />
+            <Route path="/experts/:slug" element={<Expert />} />
             <Route path="/focus-areas" element={<FocusAreas />} />
             <Route path="/repository/:id" element={<PolicyDetail />} />
             <Route path="/consultancy" element={<Consultancy />} />

@@ -108,7 +108,7 @@ describe('PolicyCard Component', () => {
         <PolicyCard policy={mockPolicy} />
       </BrowserRouter>
     );
-    expect(screen.getByText('🇰🇪')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Kenya' })).toHaveAttribute('src', '/flags/ke.svg');
   });
 
   it('renders themes as tags', () => {

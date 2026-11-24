@@ -11,7 +11,12 @@
     "message": "Mensagem",
     "messagePlaceholder": "Diga-nos como podemos ajudar...",
     "submit": "Enviar Mensagem",
-    "submitting": "A enviar..."
+    "submitting": "A enviar...",
+    "title": "Envie-nos uma mensagem",
+    "intro": "Preencha o formulário e a pessoa certa da nossa equipa entrará em contacto consigo.",
+    "privacy": "Utilizamos os seus dados apenas para responder à sua mensagem.",
+    "privacyLink": "Política de privacidade",
+    "optional": "opcional"
   },
   "topics": {
     "general": "Informação Geral",
@@ -23,11 +28,14 @@
   },
   "success": {
     "title": "Mensagem Enviada!",
-    "message": "Obrigado por nos contactar. Responderemos em breve."
+    "message": "Obrigado por nos contactar. Responderemos em breve.",
+    "again": "Enviar outra mensagem"
   },
   "error": {
     "title": "Erro",
-    "message": "Falha ao enviar mensagem. Por favor, tente novamente."
+    "message": "Falha ao enviar mensagem. Por favor, tente novamente.",
+    "tooMany": "Enviou várias mensagens num curto espaço de tempo. Tente novamente mais tarde ou envie-nos um e-mail diretamente.",
+    "emailUs": "Também pode escrever-nos para"
   },
   "info": {
     "title": "Informações de Contacto",
@@ -35,6 +43,15 @@
     "phone": "Telefone",
     "address": "Morada",
     "hours": "Horário de Funcionamento",
-    "hoursValue": "Segunda a Sexta, 9:00 - 17:00 (EAT)"
+    "hoursValue": "Segunda a Sexta, 9:00 - 17:00 (EAT)",
+    "offices": "Os nossos escritórios",
+    "follow": "Siga-nos",
+    "response": "Procuramos responder no prazo de dois dias úteis."
+  },
+  "validation": {
+    "name": "Indique o seu nome.",
+    "email": "Indique um endereço de e-mail válido.",
+    "topic": "Escolha um assunto.",
+    "message": "Escreva uma mensagem com pelo menos 10 caracteres."
   }
 }

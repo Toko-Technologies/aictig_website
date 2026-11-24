@@ -6,7 +6,7 @@ import PublicationCard from '../components/PublicationCard';
 import Pagination from '../components/Pagination';
 import EmptyState from '../components/EmptyState';
 import { CardSkeleton } from '../components/Skeleton';
-import { fetchPublications } from '../utils/graphql';
+import { fetchPublications } from '../utils/content';
 import type { Publication } from '../types';
 
 const ITEMS_PER_PAGE = 12;

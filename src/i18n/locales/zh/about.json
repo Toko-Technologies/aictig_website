@@ -43,5 +43,20 @@
   "meta": {
     "title": "关于AICTiG — 非洲网络安全与电信信息治理研究所",
     "description": "了解AICTiG通过研究、政策分析和能力建设推动非洲网络安全与信息通信技术治理的使命"
+  },
+  "experts": {
+    "backToTeam": "返回团队",
+    "notFound": "未找到该专家",
+    "biography": "个人简介",
+    "areasOfExpertise": "专业领域",
+    "regionalFocus": "区域重点",
+    "projects": "项目",
+    "publications": "出版物",
+    "conferences": "会议与演讲",
+    "linkedin": "LinkedIn",
+    "googleScholar": "Google Scholar",
+    "otherExperts": "认识我们团队的其他成员",
+    "viewProfile": "查看简介",
+    "photoAlt": "{{name}} 的照片"
   }
 }

@@ -7,7 +7,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSocialLinks } from '../utils/socialLinks';
-import { fetchLatestUpdates, fetchAllDocuments, fetchPublications, fetchNewsArticles } from '../utils/graphql';
+import { fetchLatestUpdates, fetchAllDocuments, fetchPublications, fetchNewsArticles } from '../utils/content';
 import type { Policy, Publication, NewsArticle } from '../types';
 
 export default function Header() {

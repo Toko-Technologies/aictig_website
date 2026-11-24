@@ -571,6 +571,16 @@ For questions or issues:
 - Email: info@aictig.org
 - GitHub Issues: [Create an issue](https://github.com/aictig/frontend/issues)
 
+## Admin dashboard
+
+Staff update page texts, team members and contact details at `/admin`
+(backend in `server/`, SQLite data in `AICTIG_DATA_DIR`, default `./data/`).
+
+- How to use it: [ADMIN-GUIDE.md](ADMIN-GUIDE.md)
+- Server setup, backups and security: [DEPLOYMENT.md](DEPLOYMENT.md), section 10
+- Local development: `npm run dev:server` and `npm run dev` in two terminals, then
+  `npm run create-admin -- --email you@example.org --name "Your Name"`
+
 ---
 
 **Built with** ❤️ **for digital governance across Africa**

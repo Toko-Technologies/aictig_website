@@ -375,6 +375,144 @@ without a push.
 
 ---
 
+## 10. Admin dashboard (`/admin`)
+
+The site has a built-in dashboard at **https://aictig.org/admin** where signed-in
+staff change page texts (in all 7 languages), team members and contact details.
+News, publications and repository documents are **not** managed there; they
+stay in WordPress.
+
+How it works: `server/` (inside the same Node process as `server.cjs`) stores
+edits in a SQLite database. When a page is served, the edited texts are written
+into the HTML, so visitors see changes immediately with no rebuild or redeploy.
+If the backend cannot start, the public site still runs with its built-in
+texts and only `/admin` reports a problem.
+
+### 10.1 One-time setup on the server
+
+Do this **before** deploying the dashboard release (or right after; until it is
+done, `/admin` shows "not available" and the public site is unaffected).
+
+```bash
+# 1. Data folder: database + uploaded photos. Writable only by the site user.
+install -d -m 750 -o aictig-run -g aictig-run /var/lib/aictig-website
+
+# 2. Updated PM2 definition (adds AICTIG_DATA_DIR=/var/lib/aictig-website)
+install -m 644 -o root -g root /opt/aictig-website/deploy/pm2.json /etc/aictig-website/pm2.json
+pm2 delete aictig-website && pm2 start /etc/aictig-website/pm2.json && pm2 save
+
+# 3. Updated deploy script (also restarts when server/, shared/ or locale files change)
+install -m 700 -o root -g root /opt/aictig-website/deploy/aictig-deploy.sh /usr/local/sbin/aictig-deploy.sh
+
+# 4. First dashboard account (asks for the password; at least 10 characters)
+sudo -u aictig-run env AICTIG_DATA_DIR=/var/lib/aictig-website \
+  /usr/bin/node /opt/aictig-website/scripts/create-admin.cjs \
+  --email owner@aictig.org --name "Full Name"
+```
+
+Then sign in at `https://aictig.org/admin`. More people can be added from the
+dashboard itself (**Dashboard users**).
+
+`npm ci` now installs `better-sqlite3`, which downloads a prebuilt binary for
+Node 20 during install. The build user needs outbound HTTPS for that (it
+already needs it for npm).
+
+### 10.2 Automatic translation
+
+Every English text saved in the dashboard is translated into the other 6
+languages in the background. It works out of the box: **no account, key or
+package is needed.** Settings are in the dashboard under **Translation** (on/off,
+contact email, words that must never be translated, today's usage).
+
+- **Service:** MyMemory (https://mymemory.translated.net), free. Limits: 5,000
+  characters a day, or 50,000 when a contact email is entered on the Translation
+  page. Requests are made from the server (outbound HTTPS to
+  `api.mymemory.translated.net`). MyMemory stores what it receives, so only
+  public website texts are sent.
+- **Safeguards** (`server/mymemory.cjs`): AICTiG, `{{year}}`, web and email
+  addresses, `©`/`®`/`™` and the protected-words list are swapped for tokens
+  and restored afterwards, and a translation that lost one is rejected. Each
+  line is translated separately, long paragraphs are split at sentence
+  boundaries (500-byte API limit), translated sentences are cached so they
+  never use the allowance twice, and addresses are copied rather than
+  translated.
+- **Bookkeeping:** texts edited by hand in a language are never overwritten.
+  Out-of-date translations are retried every hour, so anything left over when
+  the daily allowance runs out is finished the next day.
+
+Optional upgrade to Claude (paid, higher quality): `npm install @anthropic-ai/sdk`
+(commit `package.json` and `package-lock.json`), then put an API key from
+https://console.anthropic.com in a file only the site user can read, and restart:
+
+```bash
+install -m 600 -o aictig-run -g aictig-run /dev/null /var/lib/aictig-website/anthropic-api-key
+nano /var/lib/aictig-website/anthropic-api-key      # paste the key, save
+pm2 restart aictig-website
+```
+
+### 10.3 News, publications and repository documents
+
+- **Existing content stays in WordPress** and is read exactly as before
+  (`src/utils/graphql.ts`, unchanged). The dashboard never writes to WordPress.
+- **New content is added in the dashboard** and stored in SQLite (tables
+  `posts` and `documents`, `server/library.cjs`); uploaded files are kept in
+  `/var/lib/aictig-website/uploads` (documents in `uploads/documents`).
+- The website shows both together: `src/utils/content.ts` merges the dashboard
+  items (`/api/content/...`) with the WordPress ones. Dashboard items have ids
+  starting with `local-` (for example `/repository/local-12`). If WordPress
+  is unreachable, the dashboard items are still shown, and the other way round.
+- Countries, organisations, languages and themes for new documents come from
+  `shared/places.json`, which mirrors the lists `graphql.ts` uses for
+  WordPress documents, so filters and flags work the same for both.
+- **Later:** the WordPress items can be imported into SQLite (one-off script
+  reading the same GraphQL data) so that WordPress can be retired.
+- Back up `uploads/` together with the database (see 10.4).
+
+### 10.4 Everyday operations
+
+| Task | Command |
+|---|---|
+| Reset a forgotten password | `sudo -u aictig-run env AICTIG_DATA_DIR=/var/lib/aictig-website /usr/bin/node /opt/aictig-website/scripts/create-admin.cjs --email someone@aictig.org --reset-password` |
+| Back up the database (safe while running) | `sudo -u aictig-run env AICTIG_DATA_DIR=/var/lib/aictig-website /usr/bin/node /opt/aictig-website/scripts/backup-data.cjs /var/lib/aictig-website/backups/aictig-$(date +%F).sqlite` |
+| Back up uploaded photos | `tar -czf /root/backups/aictig-uploads-$(date +%F).tgz -C /var/lib/aictig-website uploads` |
+| See who changed what | Dashboard → **Change history** (also stored in the `audit_log` table) |
+| Contact form messages | Dashboard → **Messages** (table `contact_messages`; spam-filtered, max 5 per visitor per hour) |
+
+Restore: stop the site (`pm2 stop aictig-website`), copy the backup over
+`/var/lib/aictig-website/aictig.sqlite` (as `aictig-run`), delete any
+`aictig.sqlite-wal`/`-shm` next to it, then `pm2 start aictig-website`.
+
+### 10.5 Security model
+
+- Passwords are stored as bcrypt hashes; sessions are random tokens in an
+  `HttpOnly`, `Secure`, `SameSite=Strict` cookie scoped to `/api/admin`, and only
+  their SHA-256 hash is stored. Sessions end after 8 hours, or 2 hours idle.
+- 5 wrong passwords lock an account for 15 minutes; each IP gets 20 sign-in
+  attempts per 15 minutes (`trust proxy` is set to loopback so the real client
+  IP from Apache is used).
+- Every change request must carry the `X-AICTiG-Admin` header (cross-site
+  request forgery protection) and is validated on the server: only texts listed
+  in `shared/content-schema.json` can be changed, links must be `https://`,
+  uploads must really be JPEG/PNG/WebP (checked from the file contents, max 5 MB)
+  and get random file names.
+- `/admin` and `/api/admin` send `noindex` and `X-Frame-Options: DENY`;
+  `robots.txt` disallows `/admin`. The dashboard is not tracked in Matomo.
+
+### 10.6 For developers
+
+- Run locally: `npm run dev:server` (backend on :3001, data in `./data/`) and
+  `npm run dev` (Vite proxies `/api` and `/uploads` to it). Create a local account
+  with `npm run create-admin -- --email you@example.org --name "Your Name"`.
+- **Making a new text editable:** add it to `shared/content-schema.json`
+  (key = the i18n key used in `t('...')`, plus a plain-language label). The
+  page component needs no change: edits are applied to i18next at start-up
+  (`src/content/siteContent.ts`).
+- Database changes: append a migration to `MIGRATIONS` in `server/db.cjs`.
+- Tests: `src/__tests__/backend.test.ts` covers sign-in, lockout, CSRF,
+  validation, uploads and every API route.
+
+---
+
 ## Proxy Summary
 
 | Browser URL | Proxied To | Purpose |
@@ -382,6 +520,7 @@ without a push.
 | `www.aictig.org/*` | `localhost:3001` (Express/PM2) | Everything |
 | Express `/wp-graphql` | `be.aictig.org/index.php?graphql` (local via /etc/hosts) | GraphQL API |
 | Express `/documents/*` | `be.aictig.org/wp-content/uploads/*` (local via /etc/hosts) | PDF files |
+| Express `/api/*`, `/uploads/*` | handled in Node (`server/`), data in `/var/lib/aictig-website` | Admin dashboard API, team photos |
 
 Apache only proxies to `localhost:3001`. Express handles WordPress communication internally.  
 The backend domain `be.aictig.org` is **never visible** in the browser.

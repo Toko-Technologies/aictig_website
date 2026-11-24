@@ -38,10 +38,26 @@
   "team": {
     "title": "Our Team",
     "subtitle": "Meet the experts driving our mission forward",
-    "comingSoon": "Team profiles coming soon"
+    "comingSoon": "Team profiles coming soon",
+    "intro": "Our team comprises seasoned professionals and experts from diverse industries including cybersecurity, telecommunications, law, public policy, academia, and technology. With deep expertise spanning research, regulatory affairs, capacity building, and digital governance, our multidisciplinary team is committed to advancing cybersecurity and ICT governance across Africa."
   },
   "meta": {
     "title": "About AICTiG - African Institute for Cybersecurity & Tele-Informatics Governance",
     "description": "Learn about AICTiG's mission to advance cybersecurity and ICT governance across Africa through research, policy analysis, and capacity building"
+  },
+  "experts": {
+    "backToTeam": "Back to team",
+    "notFound": "Expert not found",
+    "biography": "Biography",
+    "areasOfExpertise": "Areas of expertise",
+    "regionalFocus": "Regional focus",
+    "projects": "Projects",
+    "publications": "Publications",
+    "conferences": "Conferences and presentations",
+    "linkedin": "LinkedIn",
+    "googleScholar": "Google Scholar",
+    "otherExperts": "Meet the rest of our team",
+    "viewProfile": "View profile",
+    "photoAlt": "Portrait of {{name}}"
   }
 }

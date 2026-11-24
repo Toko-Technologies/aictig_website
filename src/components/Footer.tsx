@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import aictigLogo from '../img/aictig_logo.png';
+// Transparent variant with white lettering, made for the dark footer.
+import aictigLogo from '../img/aictig_logo_dark.png';
 import { getSocialLinks } from '../utils/socialLinks';
+import { getSiteSettings } from '../content/siteContent';
 
 export default function Footer() {
   const { t } = useTranslation('common');
   const currentYear = new Date().getFullYear();
   const socialLinks = getSocialLinks('h-6 w-6');
+  const { contactEmails } = getSiteSettings();
   
   const quickLinks = [
     { name: t('navigation.home'), href: '/' },
@@ -30,7 +33,10 @@ export default function Footer() {
             <img
               src={aictigLogo}
               alt="AICTiG Logo"
-              className="h-28 md:h-32 w-auto mb-4"
+              width={348}
+              height={498}
+              loading="lazy"
+              className="h-24 md:h-28 w-auto mb-4"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
               }}
@@ -95,22 +101,20 @@ export default function Footer() {
             <h3 className="text-white text-lg font-semibold mb-4">{t('footer.southAfricaOffice')}</h3>
             <address className="not-italic text-sm space-y-3 text-neutral-400">
               <p>{t('footer.southAfricaAddress')}</p>
-              <div className="pt-3 border-t border-neutral-800">
-                <p className="font-medium text-white mb-1">{t('footer.email')}</p>
-                <a 
-                  href="mailto:africtig@gmail.com" 
-                  className="text-primary-500 hover:text-primary-400 transition-colors focus-ring rounded"
-                >
-                  africtig@gmail.com
-                </a>
-                <br />
-                <a 
-                  href="mailto:info@AICTiG.org" 
-                  className="text-primary-500 hover:text-primary-400 transition-colors focus-ring rounded"
-                >
-                  info@AICTiG.org
-                </a>
-              </div>
+              {contactEmails.length > 0 && (
+                <div className="pt-3 border-t border-neutral-800">
+                  <p className="font-medium text-white mb-1">{t('footer.email')}</p>
+                  {contactEmails.map((email) => (
+                    <a
+                      key={email}
+                      href={`mailto:${email}`}
+                      className="block text-primary-500 hover:text-primary-400 transition-colors focus-ring rounded w-fit"
+                    >
+                      {email}
+                    </a>
+                  ))}
+                </div>
+              )}
             </address>
           </div>
         </div>

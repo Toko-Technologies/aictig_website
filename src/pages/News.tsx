@@ -9,7 +9,7 @@ import Tag from '../components/Tag';
 import Pagination from '../components/Pagination';
 import EmptyState from '../components/EmptyState';
 import { CardSkeleton } from '../components/Skeleton';
-import { fetchNewsArticles } from '../utils/graphql';
+import { fetchNewsArticles } from '../utils/content';
 import type { NewsArticle } from '../types';
 
 dayjs.extend(relativeTime);

@@ -1,0 +1,450 @@
+{
+  "_comment": "Reference lists for documents added in the dashboard. Countries, organisations and languages mirror src/utils/graphql.ts (how WordPress documents are read); themes are the Theme/Sector categories used in WordPress.",
+  "countries": [
+    {
+      "name": "Algeria",
+      "iso2": "DZ",
+      "region": "North Africa"
+    },
+    {
+      "name": "Angola",
+      "iso2": "AO",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Benin",
+      "iso2": "BJ",
+      "region": "West Africa"
+    },
+    {
+      "name": "Botswana",
+      "iso2": "BW",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Burkina Faso",
+      "iso2": "BF",
+      "region": "West Africa"
+    },
+    {
+      "name": "Burundi",
+      "iso2": "BI",
+      "region": "East Africa"
+    },
+    {
+      "name": "Cameroon",
+      "iso2": "CM",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Cape Verde",
+      "iso2": "CV",
+      "region": "West Africa"
+    },
+    {
+      "name": "Central African Republic",
+      "iso2": "CF",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Chad",
+      "iso2": "TD",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Comoros",
+      "iso2": "KM",
+      "region": "East Africa"
+    },
+    {
+      "name": "Congo",
+      "iso2": "CG",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Democratic Republic of the Congo",
+      "iso2": "CD",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Djibouti",
+      "iso2": "DJ",
+      "region": "East Africa"
+    },
+    {
+      "name": "Egypt",
+      "iso2": "EG",
+      "region": "North Africa"
+    },
+    {
+      "name": "Equatorial Guinea",
+      "iso2": "GQ",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Eritrea",
+      "iso2": "ER",
+      "region": "East Africa"
+    },
+    {
+      "name": "Eswatini",
+      "iso2": "SZ",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Ethiopia",
+      "iso2": "ET",
+      "region": "East Africa"
+    },
+    {
+      "name": "Gabon",
+      "iso2": "GA",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Gambia",
+      "iso2": "GM",
+      "region": "West Africa"
+    },
+    {
+      "name": "Ghana",
+      "iso2": "GH",
+      "region": "West Africa"
+    },
+    {
+      "name": "Guinea",
+      "iso2": "GN",
+      "region": "West Africa"
+    },
+    {
+      "name": "Guinea-Bissau",
+      "iso2": "GW",
+      "region": "West Africa"
+    },
+    {
+      "name": "Ivory Coast",
+      "iso2": "CI",
+      "region": "West Africa"
+    },
+    {
+      "name": "Kenya",
+      "iso2": "KE",
+      "region": "East Africa"
+    },
+    {
+      "name": "Lesotho",
+      "iso2": "LS",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Liberia",
+      "iso2": "LR",
+      "region": "West Africa"
+    },
+    {
+      "name": "Libya",
+      "iso2": "LY",
+      "region": "North Africa"
+    },
+    {
+      "name": "Madagascar",
+      "iso2": "MG",
+      "region": "East Africa"
+    },
+    {
+      "name": "Malawi",
+      "iso2": "MW",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Mali",
+      "iso2": "ML",
+      "region": "West Africa"
+    },
+    {
+      "name": "Mauritania",
+      "iso2": "MR",
+      "region": "West Africa"
+    },
+    {
+      "name": "Mauritius",
+      "iso2": "MU",
+      "region": "East Africa"
+    },
+    {
+      "name": "Morocco",
+      "iso2": "MA",
+      "region": "North Africa"
+    },
+    {
+      "name": "Mozambique",
+      "iso2": "MZ",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Namibia",
+      "iso2": "NA",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Niger",
+      "iso2": "NE",
+      "region": "West Africa"
+    },
+    {
+      "name": "Nigeria",
+      "iso2": "NG",
+      "region": "West Africa"
+    },
+    {
+      "name": "Rwanda",
+      "iso2": "RW",
+      "region": "East Africa"
+    },
+    {
+      "name": "Sao Tome and Principe",
+      "iso2": "ST",
+      "region": "Central Africa"
+    },
+    {
+      "name": "Senegal",
+      "iso2": "SN",
+      "region": "West Africa"
+    },
+    {
+      "name": "Seychelles",
+      "iso2": "SC",
+      "region": "East Africa"
+    },
+    {
+      "name": "Sierra Leone",
+      "iso2": "SL",
+      "region": "West Africa"
+    },
+    {
+      "name": "Somalia",
+      "iso2": "SO",
+      "region": "East Africa"
+    },
+    {
+      "name": "South Africa",
+      "iso2": "ZA",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "South Sudan",
+      "iso2": "SS",
+      "region": "East Africa"
+    },
+    {
+      "name": "Sudan",
+      "iso2": "SD",
+      "region": "North Africa"
+    },
+    {
+      "name": "Tanzania",
+      "iso2": "TZ",
+      "region": "East Africa"
+    },
+    {
+      "name": "Togo",
+      "iso2": "TG",
+      "region": "West Africa"
+    },
+    {
+      "name": "Tunisia",
+      "iso2": "TN",
+      "region": "North Africa"
+    },
+    {
+      "name": "Uganda",
+      "iso2": "UG",
+      "region": "East Africa"
+    },
+    {
+      "name": "Zambia",
+      "iso2": "ZM",
+      "region": "Southern Africa"
+    },
+    {
+      "name": "Zimbabwe",
+      "iso2": "ZW",
+      "region": "Southern Africa"
+    }
+  ],
+  "organizations": [
+    {
+      "key": "afdb",
+      "label": "AfDB",
+      "level": "continental"
+    },
+    {
+      "key": "au",
+      "label": "African Union",
+      "level": "continental"
+    },
+    {
+      "key": "nepad",
+      "label": "NEPAD",
+      "level": "continental"
+    },
+    {
+      "key": "amu",
+      "label": "AMU",
+      "level": "regional"
+    },
+    {
+      "key": "arab-league",
+      "label": "Arab League",
+      "level": "regional"
+    },
+    {
+      "key": "asean",
+      "label": "ASEAN",
+      "level": "regional"
+    },
+    {
+      "key": "cen-sad",
+      "label": "CEN-SAD",
+      "level": "regional"
+    },
+    {
+      "key": "comesa",
+      "label": "COMESA",
+      "level": "regional"
+    },
+    {
+      "key": "eac",
+      "label": "EAC",
+      "level": "regional"
+    },
+    {
+      "key": "eccas",
+      "label": "ECCAS",
+      "level": "regional"
+    },
+    {
+      "key": "ecowas",
+      "label": "ECOWAS",
+      "level": "regional"
+    },
+    {
+      "key": "igad",
+      "label": "IGAD",
+      "level": "regional"
+    },
+    {
+      "key": "sadc",
+      "label": "SADC",
+      "level": "regional"
+    },
+    {
+      "key": "international",
+      "label": "International",
+      "level": "international"
+    },
+    {
+      "key": "itu",
+      "label": "ITU",
+      "level": "international"
+    },
+    {
+      "key": "un",
+      "label": "United Nations",
+      "level": "international"
+    }
+  ],
+  "languages": [
+    {
+      "code": "en",
+      "name": "English"
+    },
+    {
+      "code": "fr",
+      "name": "French"
+    },
+    {
+      "code": "ar",
+      "name": "Arabic"
+    },
+    {
+      "code": "pt",
+      "name": "Portuguese"
+    },
+    {
+      "code": "sw",
+      "name": "Swahili"
+    },
+    {
+      "code": "es",
+      "name": "Spanish"
+    },
+    {
+      "code": "am",
+      "name": "Amharic"
+    },
+    {
+      "code": "so",
+      "name": "Somali"
+    },
+    {
+      "code": "ha",
+      "name": "Hausa"
+    },
+    {
+      "code": "yo",
+      "name": "Yoruba"
+    },
+    {
+      "code": "ig",
+      "name": "Igbo"
+    },
+    {
+      "code": "zu",
+      "name": "Zulu"
+    },
+    {
+      "code": "af",
+      "name": "Afrikaans"
+    },
+    {
+      "code": "mg",
+      "name": "Malagasy"
+    },
+    {
+      "code": "ti",
+      "name": "Tigrinya"
+    }
+  ],
+  "themes": [
+    "5G",
+    "Artificial Intelligence",
+    "Big Data",
+    "Blockchain",
+    "Capacity Building",
+    "Cloud Computing",
+    "Communications",
+    "Critical Infrastructure",
+    "Cybercrime",
+    "Cybersecurity",
+    "Data Protection",
+    "Digital Economy",
+    "Digital Governance",
+    "Digital Identity",
+    "Digital Inclusion",
+    "Digital Literacy",
+    "Digital Transformation",
+    "E-Commerce",
+    "E-Government",
+    "Electronic Transactions",
+    "FinTech",
+    "Green IT",
+    "Innovation",
+    "Internet of Things (IoT)",
+    "National ICT policy",
+    "Privacy",
+    "Smart Cities",
+    "Software Development",
+    "Telecommunications"
+  ]
+}

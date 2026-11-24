@@ -12,7 +12,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import Tag from '../components/Tag';
 import { useToast } from '../context/UiContext';
 import { TextSkeleton } from '../components/Skeleton';
-import { fetchNewsArticleBySlug, fetchNewsArticles } from '../utils/graphql';
+import { fetchNewsArticleBySlug, fetchNewsArticles } from '../utils/content';
 import type { NewsArticle } from '../types';
 
 export default function NewsDetail() {
@@ -115,17 +115,19 @@ export default function NewsDetail() {
 
           <article className="bg-white rounded-lg shadow-md overflow-hidden">
             {/* Featured image */}
-            <div className="aspect-[21/9] overflow-hidden bg-neutral-200">
-              <img
-                src={article.image}
-                alt={`Featured image for ${article.title}`}
-                loading="eager"
-                decoding="async"
-                width="1200"
-                height="514"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            {article.image && (
+              <div className="aspect-[21/9] overflow-hidden bg-neutral-200">
+                <img
+                  src={article.image}
+                  alt={`Featured image for ${article.title}`}
+                  loading="eager"
+                  decoding="async"
+                  width="1200"
+                  height="514"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
 
             {/* Content */}
             <div className="p-8 md:p-12">
@@ -165,12 +167,11 @@ export default function NewsDetail() {
                 {article.excerpt}
               </p>
 
-              {/* Body */}
-              <div className="prose prose-lg max-w-none prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline">
-                {article.body.split('\n\n').map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
+              {/* Body: HTML authored in WordPress (same trust model as publications) */}
+              <div
+                className="wp-content"
+                dangerouslySetInnerHTML={{ __html: article.body }}
+              />
             </div>
           </article>
 

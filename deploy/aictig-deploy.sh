@@ -24,8 +24,9 @@
 #
 # ZERO DOWNTIME for normal deploys: the build goes to dist.new and is swapped
 # in with two renames; Express reads dist/ from disk per request, so new files
-# are live without a restart. The process is restarted ONLY when server.cjs or
-# dependencies changed (sub-second; Apache has retry=0 so it cannot amplify it).
+# are live without a restart. The process is restarted ONLY when backend code
+# (server.cjs, server/, shared/, locale files) or dependencies changed
+# (sub-second; Apache has retry=0 so it cannot amplify it).
 #
 # Also: `git merge --ff-only` (refuses to overwrite edits made on the box),
 # health check of the served page AND its bundle, Telegram either way, and a
@@ -47,8 +48,10 @@ LOCK=/var/lock/aictig-deploy.lock
 LOG=/var/log/aictig-deploy.log
 NOTIFY=/usr/local/sbin/toko-telegram-notify
 SELF=/usr/local/sbin/aictig-deploy.sh
-# A change to any of these needs the node process restarted.
-RESTART_PATHS=(server.cjs package.json package-lock.json)
+# A change to any of these needs the node process restarted. server/ is the
+# dashboard backend; shared/ and the locale files are read by it at start-up
+# (the content schema and the original texts the dashboard compares against).
+RESTART_PATHS=(server.cjs server shared src/i18n/locales package.json package-lock.json)
 
 if [ "$(id -u)" != "0" ]; then
   echo "must run as root" >&2
@@ -281,11 +284,11 @@ STAGE=restart
 if [ "$RESTART" = "1" ]; then
   # Named, never `all`: other apps on this box share the same PM2.
   SITE_STATE="The site may be DOWN. Roll back by reverting the commit on the production branch."
-  echo "server.cjs or dependencies changed (or --restart) -> pm2 restart ${PM2_NAME}"
+  echo "backend code, content schema, locale files or dependencies changed (or --restart) -> pm2 restart ${PM2_NAME}"
   pm2 restart "$PM2_NAME" >/dev/null 2>&1 || fail "pm2 restart $PM2_NAME failed"
   pm2 save --force >/dev/null 2>&1 || echo "warning: pm2 save failed (process list not persisted)"
 else
-  echo "server.cjs and dependencies unchanged -> no restart needed (zero downtime)"
+  echo "backend code and dependencies unchanged -> no restart needed (zero downtime)"
 fi
 
 # -------------------------------------------------------------- health check

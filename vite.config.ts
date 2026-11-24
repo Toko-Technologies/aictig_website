@@ -12,6 +12,9 @@ export default defineConfig({
   },
   server: {
     proxy: {
+      // Backend (server.cjs): run `npm run dev:server` in a second terminal.
+      '/api': 'http://localhost:3001',
+      '/uploads': 'http://localhost:3001',
       '/wp-graphql': {
         target: 'https://be.aictig.org',
         changeOrigin: true,

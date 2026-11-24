@@ -16,7 +16,7 @@ import CountryFlag from '../components/CountryFlag';
 import Tag from '../components/Tag';
 import PolicyCard from '../components/PolicyCard';
 import { TextSkeleton } from '../components/Skeleton';
-import { fetchDocumentById, fetchAllDocuments } from '../utils/graphql';
+import { fetchDocumentById, fetchAllDocuments } from '../utils/content';
 import type { Policy } from '../types';
 
 export default function PolicyDetail() {

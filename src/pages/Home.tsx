@@ -7,7 +7,7 @@ import Seo from '../components/Seo';
 import PolicyCard from '../components/PolicyCard';
 import PublicationCard from '../components/PublicationCard';
 import { SkeletonCard } from '../components/Skeleton';
-import { fetchAllDocuments, fetchPublications, fetchNewsArticles } from '../utils/graphql';
+import { fetchAllDocuments, fetchPublications, fetchNewsArticles } from '../utils/content';
 import { Policy, Publication, NewsArticle } from '../types';
 
 /* ── Lightweight localStorage cache (stale-while-revalidate) ──── */

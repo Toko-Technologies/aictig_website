@@ -11,7 +11,12 @@
     "message": "留言",
     "messagePlaceholder": "请告诉我们如何为您提供帮助...",
     "submit": "发送消息",
-    "submitting": "发送中..."
+    "submitting": "发送中...",
+    "title": "给我们留言",
+    "intro": "请填写表格，我们团队中的相关人员会与您联系。",
+    "privacy": "我们仅使用您的信息来回复您的留言。",
+    "privacyLink": "隐私政策",
+    "optional": "选填"
   },
   "topics": {
     "general": "一般咨询",
@@ -23,11 +28,14 @@
   },
   "success": {
     "title": "消息已发送！",
-    "message": "感谢您的来信。我们会尽快回复您。"
+    "message": "感谢您的来信。我们会尽快回复您。",
+    "again": "再发一条留言"
   },
   "error": {
     "title": "错误",
-    "message": "消息发送失败。请重试。"
+    "message": "消息发送失败。请重试。",
+    "tooMany": "您在短时间内发送了多条留言。请稍后再试，或直接发送电子邮件给我们。",
+    "emailUs": "您也可以发送电子邮件至"
   },
   "info": {
     "title": "联系信息",
@@ -35,6 +43,15 @@
     "phone": "电话",
     "address": "地址",
     "hours": "办公时间",
-    "hoursValue": "周一至周五，9:00 - 17:00（东非时间）"
+    "hoursValue": "周一至周五，9:00 - 17:00（东非时间）",
+    "offices": "我们的办公室",
+    "follow": "关注我们",
+    "response": "我们会尽量在两个工作日内回复。"
+  },
+  "validation": {
+    "name": "请输入您的姓名。",
+    "email": "请输入有效的电子邮件地址。",
+    "topic": "请选择一个主题。",
+    "message": "请输入至少 10 个字符的留言。"
   }
 }

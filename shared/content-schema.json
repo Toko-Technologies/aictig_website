@@ -1,0 +1,1292 @@
+{
+  "version": 1,
+  "languages": [
+    {
+      "code": "en",
+      "name": "English"
+    },
+    {
+      "code": "fr",
+      "name": "French"
+    },
+    {
+      "code": "pt",
+      "name": "Portuguese"
+    },
+    {
+      "code": "ar",
+      "name": "Arabic"
+    },
+    {
+      "code": "sw",
+      "name": "Swahili"
+    },
+    {
+      "code": "ru",
+      "name": "Russian"
+    },
+    {
+      "code": "zh",
+      "name": "Chinese"
+    }
+  ],
+  "pages": [
+    {
+      "id": "home",
+      "label": "Home page",
+      "path": "/",
+      "description": "The first page visitors see: the top banner, the “What we offer” cards and the section headings.",
+      "sections": [
+        {
+          "id": "hero",
+          "label": "Top banner",
+          "description": "The large coloured banner at the very top of the home page.",
+          "fields": [
+            {
+              "key": "home:hero.title",
+              "label": "Main heading",
+              "multiline": true,
+              "help": "Press Enter to start a new line in the heading."
+            },
+            {
+              "key": "home:hero.subtitle",
+              "label": "Text under the heading",
+              "multiline": true
+            },
+            {
+              "key": "home:hero.cta.repository",
+              "label": "First button text",
+              "help": "This button opens the Repository page."
+            },
+            {
+              "key": "home:hero.cta.updates",
+              "label": "Second button text",
+              "help": "This button opens the News page."
+            }
+          ]
+        },
+        {
+          "id": "features",
+          "label": "“What we offer” cards",
+          "description": "The three cards below the top banner.",
+          "fields": [
+            {
+              "key": "home:features.title",
+              "label": "Section heading"
+            },
+            {
+              "key": "home:features.repository.title",
+              "label": "Card 1: title"
+            },
+            {
+              "key": "home:features.repository.description",
+              "label": "Card 1: text",
+              "multiline": true
+            },
+            {
+              "key": "home:features.multilingual.title",
+              "label": "Card 2: title"
+            },
+            {
+              "key": "home:features.multilingual.description",
+              "label": "Card 2: text",
+              "multiline": true
+            },
+            {
+              "key": "home:features.openAccess.title",
+              "label": "Card 3: title"
+            },
+            {
+              "key": "home:features.openAccess.description",
+              "label": "Card 3: text",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "lists",
+          "label": "Section headings",
+          "description": "Headings above the lists of publications, policies and news. The lists themselves fill in automatically.",
+          "fields": [
+            {
+              "key": "home:latestPublications.title",
+              "label": "Publications heading"
+            },
+            {
+              "key": "home:latestPublications.viewAll",
+              "label": "Publications “view all” link"
+            },
+            {
+              "key": "home:recentPolicies.title",
+              "label": "Policies heading"
+            },
+            {
+              "key": "home:recentPolicies.viewAll",
+              "label": "Policies “view all” link"
+            },
+            {
+              "key": "home:latestNews.title",
+              "label": "News heading"
+            },
+            {
+              "key": "home:latestNews.viewAll",
+              "label": "News “view all” link"
+            }
+          ]
+        },
+        {
+          "id": "stats",
+          "label": "Numbers strip",
+          "description": "Labels under the four numbers near the bottom of the home page. The numbers are counted automatically.",
+          "fields": [
+            {
+              "key": "home:stats.countries",
+              "label": "Label 1 (countries)"
+            },
+            {
+              "key": "home:stats.policies",
+              "label": "Label 2 (policies)"
+            },
+            {
+              "key": "home:stats.languages",
+              "label": "Label 3 (languages)"
+            },
+            {
+              "key": "home:stats.publications",
+              "label": "Label 4 (publications)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "about",
+      "label": "About page",
+      "path": "/about",
+      "description": "Who AICTiG is: introduction, vision, mission and the team heading.",
+      "sections": [
+        {
+          "id": "hero",
+          "label": "Top banner",
+          "fields": [
+            {
+              "key": "about:hero.title",
+              "label": "Main heading"
+            },
+            {
+              "key": "about:hero.subtitle",
+              "label": "Text under the heading",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "intro",
+          "label": "Introduction",
+          "description": "The white box directly under the banner.",
+          "fields": [
+            {
+              "key": "about:about.paragraph2",
+              "label": "Paragraph 1",
+              "multiline": true
+            },
+            {
+              "key": "about:about.paragraph3",
+              "label": "Paragraph 2",
+              "multiline": true
+            },
+            {
+              "key": "about:about.incorporation",
+              "label": "Closing line (shown in bold)",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "vision-mission",
+          "label": "Vision and mission",
+          "fields": [
+            {
+              "key": "about:vision.title",
+              "label": "Vision heading"
+            },
+            {
+              "key": "about:vision.description",
+              "label": "Vision text",
+              "multiline": true
+            },
+            {
+              "key": "about:mission.title",
+              "label": "Mission heading"
+            },
+            {
+              "key": "about:mission.intro",
+              "label": "Mission text",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "mission-cards",
+          "label": "Mission cards",
+          "description": "The four small cards under the vision and mission.",
+          "fields": [
+            {
+              "key": "about:mission.research.title",
+              "label": "Card 1: title"
+            },
+            {
+              "key": "about:mission.research.description",
+              "label": "Card 1: text",
+              "multiline": true
+            },
+            {
+              "key": "about:mission.repository.title",
+              "label": "Card 2: title"
+            },
+            {
+              "key": "about:mission.repository.description",
+              "label": "Card 2: text",
+              "multiline": true
+            },
+            {
+              "key": "about:mission.capacity.title",
+              "label": "Card 3: title"
+            },
+            {
+              "key": "about:mission.capacity.description",
+              "label": "Card 3: text",
+              "multiline": true
+            },
+            {
+              "key": "about:mission.publications.title",
+              "label": "Card 4: title"
+            },
+            {
+              "key": "about:mission.publications.description",
+              "label": "Card 4: text",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "team",
+          "label": "Team section",
+          "description": "The heading and introduction above the team members. To add or change team members, use “Team members” in the menu.",
+          "fields": [
+            {
+              "key": "about:team.title",
+              "label": "Section heading"
+            },
+            {
+              "key": "about:team.intro",
+              "label": "Introduction text",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "seo",
+          "label": "Search engine listing",
+          "description": "How this page appears in Google results and when shared on social media. Visitors do not see these on the page.",
+          "fields": [
+            {
+              "key": "about:meta.title",
+              "label": "Page title in search results",
+              "maxLength": 120
+            },
+            {
+              "key": "about:meta.description",
+              "label": "Short summary in search results",
+              "multiline": true,
+              "maxLength": 300,
+              "help": "Aim for one or two sentences (about 150 characters)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "focus-areas",
+      "label": "Focus Areas page",
+      "path": "/focus-areas",
+      "description": "The research areas AICTiG works on, shown as cards.",
+      "sections": [
+        {
+          "id": "hero",
+          "label": "Top banner",
+          "fields": [
+            {
+              "key": "common:focusAreas.hero.title",
+              "label": "Main heading"
+            },
+            {
+              "key": "common:focusAreas.hero.subtitle",
+              "label": "Text under the heading",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "areas",
+          "label": "Focus area cards",
+          "description": "Each card has a title and a short description.",
+          "fields": [
+            {
+              "key": "common:focusAreas.learnMore",
+              "label": "“Learn more” link text"
+            },
+            {
+              "key": "common:focusAreas.ai.title",
+              "label": "Artificial Intelligence: title"
+            },
+            {
+              "key": "common:focusAreas.ai.description",
+              "label": "Artificial Intelligence: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.autonomousWeapons.title",
+              "label": "Autonomous Weapons: title"
+            },
+            {
+              "key": "common:focusAreas.autonomousWeapons.description",
+              "label": "Autonomous Weapons: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.broadband.title",
+              "label": "Broadband Policy: title"
+            },
+            {
+              "key": "common:focusAreas.broadband.description",
+              "label": "Broadband Policy: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.5g.title",
+              "label": "5G Technology: title"
+            },
+            {
+              "key": "common:focusAreas.5g.description",
+              "label": "5G Technology: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.cybersecurity.title",
+              "label": "Cybersecurity & Cybercrime: title"
+            },
+            {
+              "key": "common:focusAreas.cybersecurity.description",
+              "label": "Cybersecurity & Cybercrime: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.criticalInfrastructure.title",
+              "label": "Critical Infrastructure Protection: title"
+            },
+            {
+              "key": "common:focusAreas.criticalInfrastructure.description",
+              "label": "Critical Infrastructure Protection: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.cyberwarfare.title",
+              "label": "Cyberwarfare: title"
+            },
+            {
+              "key": "common:focusAreas.cyberwarfare.description",
+              "label": "Cyberwarfare: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.childProtection.title",
+              "label": "Child Online Protection: title"
+            },
+            {
+              "key": "common:focusAreas.childProtection.description",
+              "label": "Child Online Protection: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.crypto.title",
+              "label": "Cryptocurrencies: title"
+            },
+            {
+              "key": "common:focusAreas.crypto.description",
+              "label": "Cryptocurrencies: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.dataProtection.title",
+              "label": "Data Protection: title"
+            },
+            {
+              "key": "common:focusAreas.dataProtection.description",
+              "label": "Data Protection: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.digitalSovereignty.title",
+              "label": "Digital Sovereignty: title"
+            },
+            {
+              "key": "common:focusAreas.digitalSovereignty.description",
+              "label": "Digital Sovereignty: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.digitalIdentity.title",
+              "label": "Digital Identity: title"
+            },
+            {
+              "key": "common:focusAreas.digitalIdentity.description",
+              "label": "Digital Identity: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.digitalTrade.title",
+              "label": "Digital Trade: title"
+            },
+            {
+              "key": "common:focusAreas.digitalTrade.description",
+              "label": "Digital Trade: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.ecommerce.title",
+              "label": "Electronic Commerce: title"
+            },
+            {
+              "key": "common:focusAreas.ecommerce.description",
+              "label": "Electronic Commerce: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.electronicEvidence.title",
+              "label": "Electronic Evidence: title"
+            },
+            {
+              "key": "common:focusAreas.electronicEvidence.description",
+              "label": "Electronic Evidence: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.digitalTaxation.title",
+              "label": "Taxation of Digital Services: title"
+            },
+            {
+              "key": "common:focusAreas.digitalTaxation.description",
+              "label": "Taxation of Digital Services: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.telecom.title",
+              "label": "Telecommunications: title"
+            },
+            {
+              "key": "common:focusAreas.telecom.description",
+              "label": "Telecommunications: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.techRights.title",
+              "label": "Technology & Human Rights: title"
+            },
+            {
+              "key": "common:focusAreas.techRights.description",
+              "label": "Technology & Human Rights: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.space.title",
+              "label": "Space Policy: title"
+            },
+            {
+              "key": "common:focusAreas.space.description",
+              "label": "Space Policy: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.regionalIntegration.title",
+              "label": "Regional Integration & ICTs: title"
+            },
+            {
+              "key": "common:focusAreas.regionalIntegration.description",
+              "label": "Regional Integration & ICTs: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.intlCooperation.title",
+              "label": "International Cooperation on Cybercrime: title"
+            },
+            {
+              "key": "common:focusAreas.intlCooperation.description",
+              "label": "International Cooperation on Cybercrime: description",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.ict4d.title",
+              "label": "ICT for Development (ICT4D): title"
+            },
+            {
+              "key": "common:focusAreas.ict4d.description",
+              "label": "ICT for Development (ICT4D): description",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "label": "Bottom call-to-action",
+          "description": "The box at the bottom of the page inviting visitors to read publications or get in touch.",
+          "fields": [
+            {
+              "key": "common:focusAreas.cta.title",
+              "label": "Heading"
+            },
+            {
+              "key": "common:focusAreas.cta.description",
+              "label": "Text",
+              "multiline": true
+            },
+            {
+              "key": "common:focusAreas.cta.publications",
+              "label": "First button text"
+            },
+            {
+              "key": "common:focusAreas.cta.contact",
+              "label": "Second button text"
+            }
+          ]
+        },
+        {
+          "id": "seo",
+          "label": "Search engine listing",
+          "description": "How this page appears in Google results and when shared on social media. Visitors do not see these on the page.",
+          "fields": [
+            {
+              "key": "common:focusAreas.meta.title",
+              "label": "Page title in search results",
+              "maxLength": 120
+            },
+            {
+              "key": "common:focusAreas.meta.description",
+              "label": "Short summary in search results",
+              "multiline": true,
+              "maxLength": 300,
+              "help": "Aim for one or two sentences (about 150 characters)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consultancy",
+      "label": "Consultancy page",
+      "path": "/consultancy",
+      "description": "The consultancy services AICTiG offers.",
+      "sections": [
+        {
+          "id": "hero",
+          "label": "Top banner",
+          "fields": [
+            {
+              "key": "common:consultancy.hero.title",
+              "label": "Main heading"
+            },
+            {
+              "key": "common:consultancy.hero.subtitle",
+              "label": "Text under the heading",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "overview",
+          "label": "Services introduction",
+          "fields": [
+            {
+              "key": "common:consultancy.overview.title",
+              "label": "Heading"
+            },
+            {
+              "key": "common:consultancy.overview.description",
+              "label": "Text",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "service-policyDevelopment",
+          "label": "Service 1: Policy Development & Analysis",
+          "fields": [
+            {
+              "key": "common:consultancy.services.policyDevelopment.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.policyDevelopment.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.policyDevelopment.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.policyDevelopment.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.policyDevelopment.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-legalAnalysis",
+          "label": "Service 2: Legal Analysis",
+          "fields": [
+            {
+              "key": "common:consultancy.services.legalAnalysis.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.legalAnalysis.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.legalAnalysis.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.legalAnalysis.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.legalAnalysis.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-legalDrafting",
+          "label": "Service 3: Legal Drafting",
+          "fields": [
+            {
+              "key": "common:consultancy.services.legalDrafting.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.legalDrafting.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.legalDrafting.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.legalDrafting.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.legalDrafting.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-regulatoryCompliance",
+          "label": "Service 4: Regulatory Compliance & Monitoring",
+          "fields": [
+            {
+              "key": "common:consultancy.services.regulatoryCompliance.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.regulatoryCompliance.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.regulatoryCompliance.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.regulatoryCompliance.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.regulatoryCompliance.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-dataProtectionTraining",
+          "label": "Service 5: Data Protection Compliance Training",
+          "fields": [
+            {
+              "key": "common:consultancy.services.dataProtectionTraining.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.dataProtectionTraining.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.dataProtectionTraining.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.dataProtectionTraining.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.dataProtectionTraining.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-mappingStudies",
+          "label": "Service 6: Mapping Studies",
+          "fields": [
+            {
+              "key": "common:consultancy.services.mappingStudies.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.mappingStudies.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.mappingStudies.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.mappingStudies.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.mappingStudies.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-policyEvaluation",
+          "label": "Service 7: Policy Evaluation",
+          "fields": [
+            {
+              "key": "common:consultancy.services.policyEvaluation.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.policyEvaluation.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.policyEvaluation.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.policyEvaluation.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.policyEvaluation.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-awarenessTraining",
+          "label": "Service 8: Legal & Policy Awareness Training",
+          "fields": [
+            {
+              "key": "common:consultancy.services.awarenessTraining.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.awarenessTraining.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.awarenessTraining.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.awarenessTraining.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.awarenessTraining.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-electronicEvidence",
+          "label": "Service 9: Electronic Evidence Management",
+          "fields": [
+            {
+              "key": "common:consultancy.services.electronicEvidence.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.electronicEvidence.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.electronicEvidence.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.electronicEvidence.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.electronicEvidence.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "service-breachManagement",
+          "label": "Service 10: Data Breach Management & Risk Mitigation",
+          "fields": [
+            {
+              "key": "common:consultancy.services.breachManagement.title",
+              "label": "Service name"
+            },
+            {
+              "key": "common:consultancy.services.breachManagement.description",
+              "label": "Short description",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.services.breachManagement.feature1",
+              "label": "Bullet point 1"
+            },
+            {
+              "key": "common:consultancy.services.breachManagement.feature2",
+              "label": "Bullet point 2"
+            },
+            {
+              "key": "common:consultancy.services.breachManagement.feature3",
+              "label": "Bullet point 3"
+            }
+          ]
+        },
+        {
+          "id": "why",
+          "label": "“Why choose us”",
+          "fields": [
+            {
+              "key": "common:consultancy.whyChoose.title",
+              "label": "Section heading"
+            },
+            {
+              "key": "common:consultancy.whyChoose.expertise.title",
+              "label": "Reason 1: title"
+            },
+            {
+              "key": "common:consultancy.whyChoose.expertise.description",
+              "label": "Reason 1: text",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.whyChoose.regional.title",
+              "label": "Reason 2: title"
+            },
+            {
+              "key": "common:consultancy.whyChoose.regional.description",
+              "label": "Reason 2: text",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.whyChoose.evidenceBased.title",
+              "label": "Reason 3: title"
+            },
+            {
+              "key": "common:consultancy.whyChoose.evidenceBased.description",
+              "label": "Reason 3: text",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "label": "Bottom call-to-action",
+          "fields": [
+            {
+              "key": "common:consultancy.cta.title",
+              "label": "Heading"
+            },
+            {
+              "key": "common:consultancy.cta.description",
+              "label": "Text",
+              "multiline": true
+            },
+            {
+              "key": "common:consultancy.cta.button",
+              "label": "Button text"
+            }
+          ]
+        },
+        {
+          "id": "seo",
+          "label": "Search engine listing",
+          "description": "How this page appears in Google results and when shared on social media. Visitors do not see these on the page.",
+          "fields": [
+            {
+              "key": "common:consultancy.meta.title",
+              "label": "Page title in search results",
+              "maxLength": 120
+            },
+            {
+              "key": "common:consultancy.meta.description",
+              "label": "Short summary in search results",
+              "multiline": true,
+              "maxLength": 300,
+              "help": "Aim for one or two sentences (about 150 characters)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "label": "Contact page",
+      "path": "/contact",
+      "description": "The contact page: heading, contact details box, the form and the messages visitors see after sending.",
+      "sections": [
+        {
+          "id": "heading",
+          "label": "Page banner",
+          "description": "The coloured banner at the top of the page.",
+          "fields": [
+            {
+              "key": "contact:title",
+              "label": "Main heading"
+            },
+            {
+              "key": "contact:subtitle",
+              "label": "Text under the heading",
+              "multiline": true
+            }
+          ]
+        },
+        {
+          "id": "details",
+          "label": "Contact details box",
+          "description": "The box next to the form. The email addresses and social links themselves are changed under “Contact details”; the office addresses under “Menu and footer”.",
+          "fields": [
+            {
+              "key": "contact:info.title",
+              "label": "Box heading"
+            },
+            {
+              "key": "contact:info.email",
+              "label": "Email heading"
+            },
+            {
+              "key": "contact:info.response",
+              "label": "Reply-time note",
+              "multiline": true
+            },
+            {
+              "key": "contact:info.offices",
+              "label": "Offices heading"
+            },
+            {
+              "key": "contact:info.follow",
+              "label": "Social media heading"
+            }
+          ]
+        },
+        {
+          "id": "form",
+          "label": "Form",
+          "description": "The heading, labels and grey example text in the form.",
+          "fields": [
+            {
+              "key": "contact:form.title",
+              "label": "Form heading"
+            },
+            {
+              "key": "contact:form.intro",
+              "label": "Text under the form heading",
+              "multiline": true
+            },
+            {
+              "key": "contact:form.name",
+              "label": "Name label"
+            },
+            {
+              "key": "contact:form.namePlaceholder",
+              "label": "Name example text",
+              "translate": "copy"
+            },
+            {
+              "key": "contact:form.email",
+              "label": "Email label"
+            },
+            {
+              "key": "contact:form.emailPlaceholder",
+              "label": "Email example text",
+              "translate": "copy"
+            },
+            {
+              "key": "contact:form.topic",
+              "label": "Topic label"
+            },
+            {
+              "key": "contact:form.topicPlaceholder",
+              "label": "Topic prompt"
+            },
+            {
+              "key": "contact:form.message",
+              "label": "Message label"
+            },
+            {
+              "key": "contact:form.messagePlaceholder",
+              "label": "Message example text",
+              "multiline": true
+            },
+            {
+              "key": "contact:form.privacy",
+              "label": "Privacy note under the form",
+              "multiline": true
+            },
+            {
+              "key": "contact:form.privacyLink",
+              "label": "Privacy link text"
+            },
+            {
+              "key": "contact:form.submit",
+              "label": "Send button text"
+            },
+            {
+              "key": "contact:form.submitting",
+              "label": "Send button text while sending"
+            }
+          ]
+        },
+        {
+          "id": "topics",
+          "label": "Topics list",
+          "description": "The choices in the “Topic” drop-down.",
+          "fields": [
+            {
+              "key": "contact:topics.general",
+              "label": "Topic 1"
+            },
+            {
+              "key": "contact:topics.research",
+              "label": "Topic 2"
+            },
+            {
+              "key": "contact:topics.training",
+              "label": "Topic 3"
+            },
+            {
+              "key": "contact:topics.partnership",
+              "label": "Topic 4"
+            },
+            {
+              "key": "contact:topics.media",
+              "label": "Topic 5"
+            },
+            {
+              "key": "contact:topics.technical",
+              "label": "Topic 6"
+            }
+          ]
+        },
+        {
+          "id": "after-sending",
+          "label": "After sending",
+          "description": "What visitors see after they send the form, or if something goes wrong.",
+          "fields": [
+            {
+              "key": "contact:success.title",
+              "label": "Success heading"
+            },
+            {
+              "key": "contact:success.message",
+              "label": "Success message",
+              "multiline": true
+            },
+            {
+              "key": "contact:success.again",
+              "label": "“Send another” button"
+            },
+            {
+              "key": "contact:error.message",
+              "label": "Message if sending fails",
+              "multiline": true
+            },
+            {
+              "key": "contact:error.tooMany",
+              "label": "Message if someone sends too many messages",
+              "multiline": true
+            },
+            {
+              "key": "contact:error.emailUs",
+              "label": "Text before the email address in error messages"
+            }
+          ]
+        },
+        {
+          "id": "validation",
+          "label": "Form error messages",
+          "description": "Shown under a field when it is missing or incorrect.",
+          "fields": [
+            {
+              "key": "contact:validation.name",
+              "label": "Name missing"
+            },
+            {
+              "key": "contact:validation.email",
+              "label": "Email incorrect"
+            },
+            {
+              "key": "contact:validation.topic",
+              "label": "Topic missing"
+            },
+            {
+              "key": "contact:validation.message",
+              "label": "Message too short"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "header-footer",
+      "label": "Menu and footer",
+      "path": "/",
+      "description": "Shown on every page: the menu at the top and the dark footer at the bottom, including office addresses.",
+      "sections": [
+        {
+          "id": "menu",
+          "label": "Menu labels",
+          "description": "The names of the links in the top menu and in the footer.",
+          "fields": [
+            {
+              "key": "common:navigation.home",
+              "label": "Home"
+            },
+            {
+              "key": "common:navigation.about",
+              "label": "About"
+            },
+            {
+              "key": "common:navigation.focusAreas",
+              "label": "Focus Areas"
+            },
+            {
+              "key": "common:navigation.consultancy",
+              "label": "Consultancy"
+            },
+            {
+              "key": "common:navigation.repository",
+              "label": "Repository"
+            },
+            {
+              "key": "common:navigation.publications",
+              "label": "Publications"
+            },
+            {
+              "key": "common:navigation.news",
+              "label": "News"
+            },
+            {
+              "key": "common:navigation.contact",
+              "label": "Contact"
+            }
+          ]
+        },
+        {
+          "id": "footer-about",
+          "label": "Footer: name and tagline",
+          "fields": [
+            {
+              "key": "common:footer.fullName",
+              "label": "Organisation name"
+            },
+            {
+              "key": "common:footer.tagline",
+              "label": "Tagline"
+            }
+          ]
+        },
+        {
+          "id": "offices",
+          "label": "Footer: office addresses",
+          "description": "Email addresses and social media links are changed under “Contact details” in the menu.",
+          "fields": [
+            {
+              "key": "common:footer.nigeriaOffice",
+              "label": "Nigeria office heading"
+            },
+            {
+              "key": "common:footer.nigeriaAddress",
+              "label": "Nigeria addresses",
+              "multiline": true,
+              "help": "Put each office on its own line. Start a line with a city and a colon (for example “Abuja:”) to show the city in bold.",
+              "translate": "copy"
+            },
+            {
+              "key": "common:footer.southAfricaOffice",
+              "label": "South Africa office heading"
+            },
+            {
+              "key": "common:footer.southAfricaAddress",
+              "label": "South Africa address",
+              "multiline": true,
+              "translate": "copy"
+            },
+            {
+              "key": "common:footer.email",
+              "label": "“Email” heading"
+            }
+          ]
+        },
+        {
+          "id": "footer-bottom",
+          "label": "Footer: bottom line",
+          "fields": [
+            {
+              "key": "common:footer.copyright",
+              "label": "Copyright line",
+              "help": "Keep {{year}} in the text: it is replaced with the current year automatically."
+            },
+            {
+              "key": "common:footer.quickLinks",
+              "label": "“Quick links” heading"
+            },
+            {
+              "key": "common:footer.privacy",
+              "label": "Privacy policy link"
+            },
+            {
+              "key": "common:footer.terms",
+              "label": "Terms of service link"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

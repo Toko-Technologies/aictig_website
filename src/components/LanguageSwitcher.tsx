@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { LanguageIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { LanguageIcon, ChevronDownIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 
 const languages = [
@@ -57,7 +57,7 @@ export default function LanguageSwitcher() {
                   >
                     <span className="mr-3">{lang.nativeName}</span>
                     {lang.code === i18n.language && (
-                      <span className="ml-auto text-primary-600">✓</span>
+                      <CheckIcon className="ml-auto h-4 w-4 text-primary-600" aria-hidden="true" />
                     )}
                   </button>
                 )}

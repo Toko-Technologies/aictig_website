@@ -7,5 +7,6 @@ Sitemap: https://www.aictig.org/sitemap.xml
 # Crawl delays
 Crawl-delay: 1
 
-# Block access to API endpoints (if any in future)
+# Private areas: API and the admin dashboard
 Disallow: /api/
+Disallow: /admin

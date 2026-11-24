@@ -15,7 +15,8 @@
       "max_memory_restart": "500M",
       "env": {
         "NODE_ENV": "production",
-        "PORT": 3001
+        "PORT": 3001,
+        "AICTIG_DATA_DIR": "/var/lib/aictig-website"
       },
       "error_file": "/var/log/aictig-website/err.log",
       "out_file": "/var/log/aictig-website/out.log",

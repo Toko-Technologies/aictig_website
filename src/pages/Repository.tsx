@@ -7,7 +7,7 @@ import PolicyCard from '../components/PolicyCard';
 import Pagination from '../components/Pagination';
 import EmptyState from '../components/EmptyState';
 import { CardSkeleton } from '../components/Skeleton';
-import { fetchAllDocuments } from '../utils/graphql';
+import { fetchAllDocuments } from '../utils/content';
 import { trackSearch, trackFilter } from '../utils/analytics';
 import type { Policy } from '../types';
 

@@ -43,5 +43,20 @@
   "meta": {
     "title": "À propos de l'AICTiG - Institut Africain pour la Cybersécurité et la Gouvernance Télé-Informatique",
     "description": "Découvrez la mission de l'AICTiG pour faire progresser la cybersécurité et la gouvernance des TIC en Afrique par la recherche, l'analyse des politiques et le renforcement des capacités"
+  },
+  "experts": {
+    "backToTeam": "Retour à l'équipe",
+    "notFound": "Expert introuvable",
+    "biography": "Biographie",
+    "areasOfExpertise": "Domaines d'expertise",
+    "regionalFocus": "Zone géographique",
+    "projects": "Projets",
+    "publications": "Publications",
+    "conferences": "Conférences et présentations",
+    "linkedin": "LinkedIn",
+    "googleScholar": "Google Scholar",
+    "otherExperts": "Découvrez le reste de notre équipe",
+    "viewProfile": "Voir le profil",
+    "photoAlt": "Portrait de {{name}}"
   }
 }

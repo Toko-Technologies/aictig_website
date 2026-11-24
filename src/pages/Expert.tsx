@@ -1,241 +1,183 @@
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { Fragment, type ReactNode } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Disclosure, Transition } from '@headlessui/react';
+import {
+  ArrowLeftIcon,
+  EnvelopeIcon,
+  AcademicCapIcon,
+  ChevronDownIcon,
+  MapPinIcon,
+} from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import ExpertCard from '../components/ExpertCard';
+import ExpertPhoto from '../components/ExpertPhoto';
+import InlineMarkdown from '../components/InlineMarkdown';
+import { TextSkeleton } from '../components/Skeleton';
+import { useTeam } from '../content/team';
 
-interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  bio: string;
-  expertise: string[];
-  email?: string;
-  social?: {
-    linkedin?: string;
-    twitter?: string;
-  };
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    </svg>
+  );
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    id: 1,
-    name: 'Dr. Anaya Okafor',
-    role: 'Executive Director',
-    bio: 'Leading cybersecurity policy research and African digital governance initiatives. Dr. Okafor brings over 15 years of experience in policy analysis, research strategy, and institutional leadership across the African continent.',
-    expertise: [
-      'Cybersecurity Policy',
-      'Digital Governance',
-      'African ICT Regulation',
-      'Research Strategy',
-      'Institutional Leadership',
-      'Policy Analysis'
-    ],
-    email: 'anaya@aictig.org',
-    social: {
-      linkedin: 'https://linkedin.com/in/anaya-okafor',
-      twitter: 'https://x.com/anayaokafor'
-    }
-  },
-  {
-    id: 2,
-    name: 'Prof. Kwame Mensah',
-    role: 'Head of Research',
-    bio: 'Expert in AI governance and digital policy frameworks across Africa. Prof. Mensah has published extensively on emerging technologies, regulatory innovation, and the governance of artificial intelligence in developing economies.',
-    expertise: [
-      'AI Governance',
-      'Digital Policy',
-      'Technology Regulation',
-      'Research Methodology',
-      'Technology Ethics',
-      'African Innovation'
-    ],
-    email: 'kwame@aictig.org',
-    social: {
-      linkedin: 'https://linkedin.com/in/kwame-mensah',
-      twitter: 'https://x.com/kmmensah'
-    }
-  },
-  {
-    id: 3,
-    name: 'Dr. Fatima Al-Rashid',
-    role: 'Policy Lead',
-    bio: 'Specializes in cybersecurity legislation and regulatory compliance. Dr. Al-Rashid works closely with governments and international organizations to develop and implement effective cybersecurity frameworks.',
-    expertise: [
-      'Cybersecurity Legislation',
-      'Regulatory Compliance',
-      'Legal Frameworks',
-      'Risk Assessment',
-      'Standards Development',
-      'Policy Implementation'
-    ],
-    email: 'fatima@aictig.org',
-    social: {
-      linkedin: 'https://linkedin.com/in/fatima-rashid',
-      twitter: 'https://x.com/fatimaralrashid'
-    }
-  },
-  {
-    id: 4,
-    name: 'James Osei',
-    role: 'Senior Research Fellow',
-    bio: 'Focuses on data protection and privacy frameworks for African nations. James conducts in-depth research on privacy regulations, data governance, and the rights of digital citizens across the continent.',
-    expertise: [
-      'Data Protection',
-      'Privacy Frameworks',
-      'Digital Rights',
-      'Regulatory Analysis',
-      'Stakeholder Engagement',
-      'Research Analysis'
-    ],
-    email: 'james@aictig.org',
-    social: {
-      linkedin: 'https://linkedin.com/in/james-osei',
-      twitter: 'https://x.com/jamesoseidata'
-    }
-  },
-  {
-    id: 5,
-    name: 'Dr. Amina Hassan',
-    role: 'Consultant - Capacity Building',
-    bio: 'Leads training programs and stakeholder engagement initiatives. Dr. Hassan designs and delivers innovative capacity-building programs tailored to the needs of African governments and institutions.',
-    expertise: [
-      'Capacity Building',
-      'Training Development',
-      'Stakeholder Engagement',
-      'Program Design',
-      'Adult Learning',
-      'Organizational Development'
-    ],
-    email: 'amina@aictig.org',
-    social: {
-      linkedin: 'https://linkedin.com/in/amina-hassan',
-      twitter: 'https://x.com/aminahassan'
-    }
-  },
-  {
-    id: 6,
-    name: 'Marcus Juma',
-    role: 'Communications Director',
-    bio: 'Manages publications and knowledge dissemination across the continent. Marcus oversees the institute\'s communications strategy, content creation, and public engagement initiatives.',
-    expertise: [
-      'Communications Strategy',
-      'Knowledge Dissemination',
-      'Content Creation',
-      'Media Relations',
-      'Digital Marketing',
-      'Public Engagement'
-    ],
-    email: 'marcus@aictig.org',
-    social: {
-      linkedin: 'https://linkedin.com/in/marcus-juma',
-      twitter: 'https://x.com/marcusjuma'
-    }
-  }
-];
+/** Collapsible profile section ("dropdown"), built on Headless UI Disclosure. */
+function ProfileSection({
+  title,
+  count,
+  defaultOpen = false,
+  children,
+}: {
+  title: string;
+  count?: number;
+  defaultOpen?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <Disclosure as="div" defaultOpen={defaultOpen} className="bg-white rounded-lg shadow-md border border-neutral-200 overflow-hidden">
+      {({ open }) => (
+        <>
+          <Disclosure.Button className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left hover:bg-neutral-50 transition-colors focus-ring">
+            <span className="flex items-center gap-3">
+              <span className="text-xl font-bold text-neutral-900">{title}</span>
+              {count !== undefined && (
+                <span className="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary-100 text-primary-700 text-sm font-semibold">
+                  {count}
+                </span>
+              )}
+            </span>
+            <ChevronDownIcon
+              className={`h-6 w-6 flex-shrink-0 text-primary-600 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+              aria-hidden="true"
+            />
+          </Disclosure.Button>
+          <Transition
+            as={Fragment}
+            enter="transition duration-150 ease-out"
+            enterFrom="opacity-0 -translate-y-1"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition duration-100 ease-in"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Disclosure.Panel className="px-6 pb-6 pt-1 border-t border-neutral-100">
+              {children}
+            </Disclosure.Panel>
+          </Transition>
+        </>
+      )}
+    </Disclosure>
+  );
+}
+
+function NumberedList({ items }: { items: string[] }) {
+  return (
+    <ol className="mt-4 space-y-4">
+      {items.map((item, index) => (
+        <li key={index} className="flex gap-4">
+          <span className="flex-shrink-0 w-8 text-right font-semibold text-primary-600 tabular-nums">
+            {index + 1}.
+          </span>
+          <span className="text-neutral-700 leading-relaxed">
+            <InlineMarkdown>{item}</InlineMarkdown>
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}
 
 export default function Expert() {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  
-  const expert = teamMembers.find(member => member.id === parseInt(id || '0'));
-  
+  const { slug } = useParams<{ slug: string }>();
+  const { t } = useTranslation('about');
+  const team = useTeam();
+
+  if (team === null) {
+    return (
+      <main className="bg-neutral-50 min-h-screen py-16">
+        <div className="container-custom max-w-4xl">
+          <TextSkeleton lines={12} />
+        </div>
+      </main>
+    );
+  }
+
+  const expert = team.find((member) => member.slug === slug);
   if (!expert) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-50">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-neutral-900 mb-4">Expert not found</h1>
-          <Link to="/about" className="text-primary-600 hover:text-primary-700 font-medium">
-            Back to Team
+          <h1 className="text-3xl font-bold text-neutral-900 mb-4">{t('experts.notFound')}</h1>
+          <Link to="/about#team" className="text-primary-600 hover:text-primary-700 font-medium">
+            {t('experts.backToTeam')}
           </Link>
         </div>
       </div>
     );
   }
 
-  const initials = expert.name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase();
+  const others = team.filter((e) => e.slug !== expert.slug);
+  const secondaryButton =
+    'inline-flex items-center px-4 py-2 bg-white text-neutral-700 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors focus-ring font-medium';
 
   return (
     <>
-      <Seo title={expert.name} description={`${expert.role} at AICTiG`} />
-      
+      <Seo title={expert.name} description={`${expert.role} at AICTiG. ${expert.summary}`} image={expert.photo} />
+
       <main>
-        {/* Back Button */}
+        {/* Back link */}
         <div className="bg-white border-b border-neutral-200">
           <div className="container-custom py-4">
-            <button
-              onClick={() => navigate('/about')}
-              className="flex items-center text-primary-600 hover:text-primary-700 font-medium focus-ring rounded px-2 py-1"
+            <Link
+              to="/about#team"
+              className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium focus-ring rounded px-2 py-1"
             >
-              <ArrowLeftIcon className="h-5 w-5 mr-2" />
-              Back to Team
-            </button>
+              <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true" />
+              {t('experts.backToTeam')}
+            </Link>
           </div>
         </div>
 
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-16 md:py-24">
+        {/* Hero */}
+        <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-12 md:py-20">
           <div className="container-custom">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-              {/* Avatar */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
               <div className="flex justify-center md:justify-start">
-                <div className="w-48 h-48 md:w-64 md:h-64 rounded-lg shadow-lg bg-gradient-to-br from-primary-400 to-secondary-500 flex items-center justify-center overflow-hidden">
-                  <span className="text-7xl md:text-8xl font-bold text-white opacity-90">
-                    {initials}
-                  </span>
+                <div className="w-56 md:w-full max-w-xs aspect-[4/5] rounded-lg shadow-lg overflow-hidden bg-neutral-200 ring-4 ring-white">
+                  <ExpertPhoto member={expert} eager />
                 </div>
               </div>
 
-              {/* Info */}
-              <div className="md:col-span-2">
-                <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-2">
-                  {expert.name}
-                </h1>
-                <p className="text-2xl text-primary-600 font-semibold mb-6">
-                  {expert.role}
-                </p>
-                
-                <p className="text-lg text-neutral-700 leading-relaxed mb-8">
-                  {expert.bio}
+              <div className="md:col-span-2 text-center md:text-left">
+                <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-2">{expert.name}</h1>
+                <p className="text-xl md:text-2xl text-primary-600 font-semibold mb-6">{expert.role}</p>
+                <p className="text-lg text-neutral-700 leading-relaxed mb-8 max-w-2xl md:mx-0 mx-auto">
+                  {expert.summary}
                 </p>
 
-                {/* Contact */}
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                   {expert.email && (
                     <a
                       href={`mailto:${expert.email}`}
                       className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors focus-ring font-medium"
                     >
-                      <EnvelopeIcon className="h-5 w-5 mr-2" />
-                      Contact
+                      <EnvelopeIcon className="h-5 w-5 mr-2" aria-hidden="true" />
+                      {expert.email}
                     </a>
                   )}
-                  {expert.social?.linkedin && (
-                    <a
-                      href={expert.social.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-colors focus-ring font-medium"
-                    >
-                      <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                      </svg>
-                      LinkedIn
+                  {expert.linkedin && (
+                    <a href={expert.linkedin} target="_blank" rel="noopener noreferrer" className={secondaryButton}>
+                      <LinkedInIcon className="h-5 w-5 mr-2 text-[#0A66C2]" />
+                      {t('experts.linkedin')}
                     </a>
                   )}
-                  {expert.social?.twitter && (
-                    <a
-                      href={expert.social.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-colors focus-ring font-medium"
-                    >
-                      <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                        <path d="M18.244 2H21l-6.409 7.323L22 22h-6.828l-4.767-6.215L4.8 22H2l6.878-7.86L2 2h6.999l4.309 5.646L18.244 2Zm-1.196 18h1.802L7.057 4H5.13l11.918 16Z" />
-                      </svg>
-                      X
+                  {expert.googleScholar && (
+                    <a href={expert.googleScholar} target="_blank" rel="noopener noreferrer" className={secondaryButton}>
+                      <AcademicCapIcon className="h-5 w-5 mr-2 text-primary-600" aria-hidden="true" />
+                      {t('experts.googleScholar')}
                     </a>
                   )}
                 </div>
@@ -244,66 +186,74 @@ export default function Expert() {
           </div>
         </section>
 
-        {/* Expertise Section */}
-        <section className="py-16 bg-white">
-          <div className="container-custom">
-            <h2 className="text-3xl font-bold text-neutral-900 mb-8">Areas of Expertise</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {expert.expertise.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center p-4 bg-primary-50 rounded-lg border border-primary-200"
-                >
-                  <div className="w-2 h-2 bg-primary-600 rounded-full mr-3 flex-shrink-0" />
-                  <span className="text-neutral-700 font-medium">{item}</span>
-                </div>
+        {/* Biography */}
+        <section className="py-12 md:py-16 bg-white">
+          <div className="container-custom max-w-4xl">
+            <h2 className="text-3xl font-bold text-neutral-900 mb-6">{t('experts.biography')}</h2>
+            <div className="space-y-5">
+              {expert.bio.map((paragraph, index) => (
+                <p key={index} className="text-lg text-neutral-700 leading-relaxed">
+                  <InlineMarkdown>{paragraph}</InlineMarkdown>
+                </p>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Other Experts Section */}
-        <section className="py-16 bg-neutral-50">
-          <div className="container-custom">
-            <h2 className="text-3xl font-bold text-neutral-900 mb-12">Meet the Rest of Our Team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers
-                .filter(member => member.id !== expert.id)
-                .map(member => {
-                  const memberInitials = member.name
-                    .split(' ')
-                    .map(n => n[0])
-                    .join('')
-                    .toUpperCase();
-                  
-                  return (
-                    <Link
-                      key={member.id}
-                      to={`/experts/${member.id}`}
-                      className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow focus-ring rounded"
-                    >
-                      <div className="h-48 bg-gradient-to-br from-primary-400 to-secondary-500 flex items-center justify-center">
-                        <span className="text-5xl font-bold text-white opacity-90">
-                          {memberInitials}
-                        </span>
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-neutral-900 mb-1 group-hover:text-primary-600 transition-colors">
-                          {member.name}
-                        </h3>
-                        <p className="text-primary-600 font-semibold text-sm mb-3">
-                          {member.role}
-                        </p>
-                        <p className="text-neutral-600 text-sm line-clamp-2">
-                          {member.bio}
-                        </p>
-                      </div>
-                    </Link>
-                  );
-                })}
-            </div>
+        {/* Collapsible profile sections */}
+        <section className="py-12 md:py-16 bg-neutral-50">
+          <div className="container-custom max-w-4xl space-y-4">
+            <ProfileSection title={t('experts.areasOfExpertise')} defaultOpen>
+              <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {expert.expertise.map((item) => (
+                  <li key={item} className="flex items-center p-3 bg-primary-50 rounded-lg border border-primary-200">
+                    <span className="w-2 h-2 bg-primary-600 rounded-full mr-3 flex-shrink-0" aria-hidden="true" />
+                    <span className="text-neutral-700 font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              {expert.regionalFocus && expert.regionalFocus.length > 0 && (
+                <p className="mt-5 flex flex-wrap items-center gap-2 text-neutral-700">
+                  <MapPinIcon className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                  <span className="font-semibold">{t('experts.regionalFocus')}:</span>
+                  {expert.regionalFocus.join(', ')}
+                </p>
+              )}
+            </ProfileSection>
+
+            {expert.projects && expert.projects.length > 0 && (
+              <ProfileSection title={t('experts.projects')} count={expert.projects.length}>
+                <NumberedList items={expert.projects} />
+              </ProfileSection>
+            )}
+
+            {expert.publications && expert.publications.length > 0 && (
+              <ProfileSection title={t('experts.publications')} count={expert.publications.length}>
+                <NumberedList items={expert.publications} />
+              </ProfileSection>
+            )}
+
+            {expert.conferences && expert.conferences.length > 0 && (
+              <ProfileSection title={t('experts.conferences')} count={expert.conferences.length}>
+                <NumberedList items={expert.conferences} />
+              </ProfileSection>
+            )}
           </div>
         </section>
+
+        {/* Other experts */}
+        {others.length > 0 && (
+          <section className="py-12 md:py-16 bg-white">
+            <div className="container-custom">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-8">{t('experts.otherExperts')}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {others.map((member) => (
+                  <ExpertCard key={member.slug} expert={member} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
     </>
   );

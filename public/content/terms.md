@@ -108,7 +108,7 @@ Email: privacy@aictig.org
 Address:
 
 - **Abuja:** 18 Bendel Street, Garki, Abuja, Nigeria
-- **Lagos:** 111B Ikeja Way, Dolphin Estate, Ikoyi, Lagos State
+- **Lagos:** Lapal House (Suites 2K & 2L, 2nd Floor), 235 Igbosere Road, Lagos Island, Lagos
 - **Pretoria:** Suite 3B, Hatfield Bridge, Stanza Bopape St & Richard, Hatfield, Pretoria, 0147, South Africa
 
 ---

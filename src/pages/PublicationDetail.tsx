@@ -6,13 +6,14 @@ import {
   ShareIcon,
   ArrowLeftIcon,
   UserIcon,
+  ArrowDownTrayIcon,
 } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Tag from '../components/Tag';
 import { useToast } from '../context/UiContext';
 import { TextSkeleton } from '../components/Skeleton';
-import { fetchPublicationBySlug } from '../utils/graphql';
+import { fetchPublicationBySlug } from '../utils/content';
 import type { Publication } from '../types';
 
 export default function PublicationDetail() {
@@ -148,11 +149,21 @@ export default function PublicationDetail() {
                 </div>
               )}
 
+              {/* Attached file (publications added in the dashboard) */}
+              {publication.fileUrl && (
+                <a
+                  href={publication.fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mb-8 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 font-medium text-white hover:bg-primary-700"
+                >
+                  <ArrowDownTrayIcon className="h-5 w-5" aria-hidden="true" />
+                  {t('pubs:detail.downloadPdf', 'Download PDF')}
+                </a>
+              )}
+
               {/* Body */}
-              <div
-                className="prose prose-lg max-w-none prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline"
-                dangerouslySetInnerHTML={{ __html: publication.content }}
-              />
+              <div className="wp-content" dangerouslySetInnerHTML={{ __html: publication.content }} />
             </div>
           </article>
         </div>

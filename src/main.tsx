@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { trackWebVital } from './utils/analytics';
+import { loadSiteContent } from './content/siteContent';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// Apply texts and settings from the admin dashboard before the first render.
+loadSiteContent().finally(() => {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+});
 
 // Report Core Web Vitals to Matomo as custom events
 import { onCLS, onINP, onLCP, onTTFB } from 'web-vitals';

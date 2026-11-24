@@ -11,7 +11,12 @@
     "message": "Message",
     "messagePlaceholder": "Tell us how we can help...",
     "submit": "Send Message",
-    "submitting": "Sending..."
+    "submitting": "Sending...",
+    "title": "Send us a message",
+    "intro": "Fill in the form and the right person in our team will get back to you.",
+    "privacy": "We use your details only to reply to your message.",
+    "privacyLink": "Privacy policy",
+    "optional": "optional"
   },
   "topics": {
     "general": "General Inquiry",
@@ -23,11 +28,14 @@
   },
   "success": {
     "title": "Message Sent!",
-    "message": "Thank you for contacting us. We'll get back to you soon."
+    "message": "Thank you for contacting us. We'll get back to you soon.",
+    "again": "Send another message"
   },
   "error": {
     "title": "Error",
-    "message": "Failed to send message. Please try again."
+    "message": "Failed to send message. Please try again.",
+    "tooMany": "You have sent several messages in a short time. Please try again later, or email us directly.",
+    "emailUs": "You can also email us at"
   },
   "info": {
     "title": "Contact Information",
@@ -35,6 +43,15 @@
     "phone": "Phone",
     "address": "Address",
     "hours": "Office Hours",
-    "hoursValue": "Monday - Friday, 9:00 AM - 5:00 PM (EAT)"
+    "hoursValue": "Monday - Friday, 9:00 AM - 5:00 PM (EAT)",
+    "offices": "Our offices",
+    "follow": "Follow us",
+    "response": "We aim to reply within two working days."
+  },
+  "validation": {
+    "name": "Please enter your name.",
+    "email": "Please enter a valid email address.",
+    "topic": "Please choose a topic.",
+    "message": "Please write a message of at least 10 characters."
   }
 }
