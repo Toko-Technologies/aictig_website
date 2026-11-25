@@ -26,7 +26,7 @@ export default function ExpertPhoto({
       <div
         role="img"
         aria-label={member.name}
-        className={`w-full h-full flex items-center justify-center bg-secondary-600 ${className}`}
+        className={`w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-500 to-secondary-600 ${className}`}
       >
         <span className="text-5xl font-bold text-white/90">{initials}</span>
       </div>

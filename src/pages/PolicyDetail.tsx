@@ -94,7 +94,7 @@ export default function PolicyDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
             {/* Main content */}
             <div className="lg:col-span-2">
-              <article className="bg-white rounded-xl border border-neutral-200 p-8">
+              <article className="bg-white rounded-lg shadow-md p-8">
                 {/* Header */}
                 <div className="mb-6">
                   <div className="flex items-center gap-3 mb-4">
@@ -158,7 +158,7 @@ export default function PolicyDetail() {
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl border border-neutral-200 p-6 sticky top-24">
+              <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
                 <h2 className="text-lg font-semibold text-neutral-900 mb-4">
                   {t('repo:detail.metadata')}
                 </h2>

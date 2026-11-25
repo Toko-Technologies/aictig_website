@@ -5,7 +5,6 @@ import { CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Seo from '../components/Seo';
-import PageHeader from '../components/PageHeader';
 import Tag from '../components/Tag';
 import Pagination from '../components/Pagination';
 import EmptyState from '../components/EmptyState';
@@ -44,9 +43,17 @@ export default function News() {
         title={t('news:meta.title')}
         description={t('news:meta.description')}
       />
-      <main className="bg-neutral-50 min-h-screen">
-        <PageHeader title={t('news:title')} subtitle={t('news:subtitle')} />
-        <div className="container-custom py-10 md:py-12">
+      <main className="bg-neutral-50 min-h-screen py-16">
+        <div className="container-custom">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-neutral-900 mb-4">
+              {t('news:title')}
+            </h1>
+            <p className="text-lg text-neutral-600 max-w-3xl">
+              {t('news:subtitle')}
+            </p>
+          </div>
 
           {/* Content */}
           {loading ? (
@@ -64,7 +71,7 @@ export default function News() {
             <>
               {/* Featured article (first one) */}
               {currentPage === 1 && paginatedArticles.length > 0 && (
-                <article className="bg-white rounded-xl border border-neutral-200 overflow-hidden mb-8">
+                <article className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
                   <div className="grid grid-cols-1 lg:grid-cols-2">
                     <div className="aspect-[16/9] lg:aspect-auto">
                       <img
@@ -118,7 +125,7 @@ export default function News() {
                   .map((article) => (
                     <article
                       key={article.id}
-                      className="bg-white rounded-xl border border-neutral-200 overflow-hidden transition hover:border-primary-300 hover:shadow-md"
+                      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
                     >
                       <Link to={`/news/${article.slug}`}>
                         <div className="aspect-[16/9] overflow-hidden bg-neutral-200">
@@ -129,7 +136,7 @@ export default function News() {
                             decoding="async"
                             width="400"
                             height="225"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                           />
                         </div>
                       </Link>

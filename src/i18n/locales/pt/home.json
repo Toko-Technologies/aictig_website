@@ -1,6 +1,5 @@
 {
   "hero": {
-    "eyebrow": "Investigação · Políticas · Capacitação",
     "title": "Instituto Africano para a Cibersegurança \ne Governança da Teleinformática",
     "subtitle": "Avançando a cibersegurança e a governança das TIC em África através de pesquisa, análise de políticas e capacitação",
     "cta": {
@@ -40,13 +39,5 @@
     "policies": "Políticas Indexadas",
     "languages": "Idiomas Suportados",
     "publications": "Publicações de Pesquisa"
-  },
-  "panel": {
-    "title": "Por dentro do repositório",
-    "themes": "Temas mais abordados"
-  },
-  "cta": {
-    "title": "Está a moldar as políticas digitais em África?",
-    "text": "Trabalhe com os nossos especialistas em parcerias de investigação, programas de formação e consultoria em políticas para governos e organizações."
   }
 }

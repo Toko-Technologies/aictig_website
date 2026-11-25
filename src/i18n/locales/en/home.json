@@ -1,6 +1,5 @@
 {
   "hero": {
-    "eyebrow": "Research · Policy · Capacity Building",
     "title": "African Institute for Cybersecurity \n& Tele-Informatics Governance",
     "subtitle": "Advancing cybersecurity and ICT Governance in Africa through research, policy analysis and capacity building",
     "cta": {
@@ -40,13 +39,5 @@
     "policies": "Policies Indexed",
     "languages": "Languages Supported",
     "publications": "Research Publications"
-  },
-  "panel": {
-    "title": "Inside the repository",
-    "themes": "Most covered themes"
-  },
-  "cta": {
-    "title": "Shaping digital policy in Africa?",
-    "text": "Work with our experts on research partnerships, training programmes and policy consultancy for governments and organisations."
   }
 }

@@ -35,17 +35,13 @@
       "id": "home",
       "label": "Home page",
       "path": "/",
-      "description": "The first page visitors see: the top banner with the repository card, the “What we offer” cards, the section headings and the closing banner.",
+      "description": "The first page visitors see: the top banner, the “What we offer” cards and the section headings.",
       "sections": [
         {
           "id": "hero",
           "label": "Top banner",
           "description": "The large coloured banner at the very top of the home page.",
           "fields": [
-            {
-              "key": "home:hero.eyebrow",
-              "label": "Small label above the heading"
-            },
             {
               "key": "home:hero.title",
               "label": "Main heading",
@@ -139,24 +135,9 @@
           ]
         },
         {
-          "id": "panel",
-          "label": "Repository card",
-          "description": "The card on the right of the top banner that summarises the policy repository.",
-          "fields": [
-            {
-              "key": "home:panel.title",
-              "label": "Card heading"
-            },
-            {
-              "key": "home:panel.themes",
-              "label": "Heading above the theme bars"
-            }
-          ]
-        },
-        {
           "id": "stats",
-          "label": "Numbers",
-          "description": "Labels for the four numbers in the repository card of the top banner. The numbers are counted automatically.",
+          "label": "Numbers strip",
+          "description": "Labels under the four numbers near the bottom of the home page. The numbers are counted automatically.",
           "fields": [
             {
               "key": "home:stats.countries",
@@ -173,22 +154,6 @@
             {
               "key": "home:stats.publications",
               "label": "Label 4 (publications)"
-            }
-          ]
-        },
-        {
-          "id": "cta",
-          "label": "Closing banner",
-          "description": "The coloured banner at the bottom of the home page, with buttons to the Contact and Consultancy pages.",
-          "fields": [
-            {
-              "key": "home:cta.title",
-              "label": "Heading"
-            },
-            {
-              "key": "home:cta.text",
-              "label": "Text under the heading",
-              "multiline": true
             }
           ]
         }

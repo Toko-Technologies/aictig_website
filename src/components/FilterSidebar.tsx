@@ -35,7 +35,7 @@ export default function FilterSidebar({
 
   const containerClasses = isMobile
     ? 'bg-white rounded-lg shadow-lg p-4 max-h-[70vh] overflow-y-auto'
-    : 'bg-white rounded-xl border border-neutral-200 p-6 sticky top-24';
+    : 'bg-white rounded-lg shadow-md p-6 sticky top-24';
 
   return (
     <aside className={containerClasses}>

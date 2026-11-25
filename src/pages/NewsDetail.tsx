@@ -113,7 +113,7 @@ export default function NewsDetail() {
             {t('news:backToNews')}
           </Link>
 
-          <article className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+          <article className="bg-white rounded-lg shadow-md overflow-hidden">
             {/* Featured image */}
             {article.image && (
               <div className="aspect-[21/9] overflow-hidden bg-neutral-200">
@@ -185,7 +185,7 @@ export default function NewsDetail() {
                 {relatedArticles.map((relatedArticle) => (
                   <article
                     key={relatedArticle.id}
-                    className="bg-white rounded-xl border border-neutral-200 overflow-hidden transition hover:border-primary-300 hover:shadow-md"
+                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
                   >
                     <Link to={`/news/${relatedArticle.slug}`}>
                       <div className="aspect-[16/9] overflow-hidden bg-neutral-200">
@@ -196,7 +196,7 @@ export default function NewsDetail() {
                           decoding="async"
                           width="400"
                           height="225"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                     </Link>

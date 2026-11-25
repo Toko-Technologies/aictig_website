@@ -1,6 +1,5 @@
 {
   "hero": {
-    "eyebrow": "Recherche · Politiques · Renforcement des capacités",
     "title": "Institut Africain pour la Cybersécurité \net la Gouvernance Télé-Informatique",
     "subtitle": "Faire progresser la cybersécurité et la gouvernance des TIC en Afrique par la recherche, l'analyse des politiques et le renforcement des capacités",
     "cta": {
@@ -40,13 +39,5 @@
     "policies": "Politiques indexées",
     "languages": "Langues supportées",
     "publications": "Publications de recherche"
-  },
-  "panel": {
-    "title": "Au cœur du répertoire",
-    "themes": "Thèmes les plus couverts"
-  },
-  "cta": {
-    "title": "Vous façonnez les politiques numériques en Afrique ?",
-    "text": "Collaborez avec nos experts sur des partenariats de recherche, des programmes de formation et du conseil en politiques publiques pour les gouvernements et les organisations."
   }
 }
