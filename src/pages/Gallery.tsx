@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CalendarIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
 import Lightbox from '../components/Lightbox';
 import { CardSkeleton } from '../components/Skeleton';
 import type { GalleryImage } from '../types';
@@ -51,18 +52,9 @@ export default function Gallery() {
         title="Photo Gallery"
         description="Browse photos from AICTiG events, conferences, and activities"
       />
-      <main className="bg-neutral-50 min-h-screen py-16">
-        <div className="container-custom">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-neutral-900 mb-4">
-              Photo Gallery
-            </h1>
-            <p className="text-lg text-neutral-600 max-w-3xl">
-              Explore moments from our events, conferences, workshops, and activities
-              across Africa
-            </p>
-          </div>
+      <main className="bg-neutral-50 min-h-screen">
+        <PageHeader title="Photo Gallery" subtitle="Explore moments from our events, conferences, workshops, and activities across Africa" />
+        <div className="container-custom py-10 md:py-12">
 
           {/* Gallery grid */}
           {loading ? (
@@ -76,7 +68,7 @@ export default function Gallery() {
               {images.map((image, index) => (
                 <article
                   key={image.id}
-                  className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
+                  className="group bg-white rounded-xl border border-neutral-200 overflow-hidden transition hover:border-primary-300 hover:shadow-md cursor-pointer"
                   onClick={() => openLightbox(index)}
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-neutral-200">
@@ -87,9 +79,8 @@ export default function Gallery() {
                       decoding="async"
                       width="400"
                       height="300"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <div className="p-4">
                     <h2 className="font-semibold text-neutral-900 mb-2 line-clamp-2">

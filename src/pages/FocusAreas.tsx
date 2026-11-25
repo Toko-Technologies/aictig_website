@@ -12,8 +12,10 @@ import {
   BuildingLibraryIcon,
   RocketLaunchIcon,
   LinkIcon,
+  ArrowRightIcon,
 } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
 
 export default function FocusAreas() {
   const { t } = useTranslation(['common']);
@@ -212,20 +214,10 @@ export default function FocusAreas() {
         description={t('focusAreas.meta.description')}
       />
       <main className="bg-neutral-50 min-h-screen">
-        {/* Hero section */}
-        <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-20">
-          <div className="container-custom">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {t('focusAreas.hero.title')}
-            </h1>
-            <p className="text-xl text-neutral-50 max-w-3xl leading-relaxed">
-              {t('focusAreas.hero.subtitle')}
-            </p>
-          </div>
-        </section>
+        <PageHeader title={t('focusAreas.hero.title')} subtitle={t('focusAreas.hero.subtitle')} />
 
         {/* Focus Areas Grid */}
-        <section className="py-16">
+        <section className="py-16 md:py-20">
           <div className="container-custom">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {focusAreas.map((area) => {
@@ -234,22 +226,20 @@ export default function FocusAreas() {
                   <Link
                     key={area.id}
                     to={`/repository?theme=${encodeURIComponent(area.title)}`}
-                    className={`bg-white rounded-lg shadow-md p-6 border-2 ${colors.border} ${colors.hover} transition-all hover:shadow-lg group`}
+                    className="group flex flex-col rounded-xl border border-neutral-200 bg-white p-6 transition-colors hover:border-primary-300 hover:shadow-md focus-ring"
                   >
-                    <div className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                      <area.icon className={`w-6 h-6 ${colors.icon}`} />
+                    <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-lg ${colors.bg}`}>
+                      <area.icon className={`h-6 w-6 ${colors.icon}`} aria-hidden="true" />
                     </div>
-                    <h2 className="text-lg font-semibold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
+                    <h2 className="mb-2 text-lg font-semibold text-neutral-900 group-hover:text-primary-700">
                       {area.title}
                     </h2>
-                    <p className="text-neutral-600 text-sm leading-relaxed">
+                    <p className="flex-1 text-sm leading-relaxed text-neutral-600">
                       {area.description}
                     </p>
-                    <div className="mt-4 flex items-center text-primary-600 text-sm font-medium">
+                    <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-primary-600">
                       {t('focusAreas.learnMore')}
-                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
+                      <ArrowRightIcon className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
                     </div>
                   </Link>
                 );
@@ -259,24 +249,26 @@ export default function FocusAreas() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-white">
-          <div className="container-custom text-center">
-            <h2 className="text-3xl font-bold text-neutral-900 mb-4">
-              {t('focusAreas.cta.title')}
-            </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto mb-8">
-              {t('focusAreas.cta.description')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <section className="bg-primary-700 py-16 text-white md:py-20">
+          <div className="container-custom flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold md:text-3xl">
+                {t('focusAreas.cta.title')}
+              </h2>
+              <p className="mt-3 text-lg leading-relaxed text-primary-50">
+                {t('focusAreas.cta.description')}
+              </p>
+            </div>
+            <div className="flex flex-shrink-0 flex-wrap gap-4">
               <Link
                 to="/publications"
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+                className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 font-semibold text-primary-700 transition-colors hover:bg-primary-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-700"
               >
                 {t('focusAreas.cta.publications')}
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 border-2 border-primary-600 text-base font-medium rounded-md text-primary-600 bg-white hover:bg-primary-50 transition-colors"
+                className="inline-flex items-center justify-center rounded-lg border border-white/60 px-6 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-primary-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-700"
               >
                 {t('focusAreas.cta.contact')}
               </Link>

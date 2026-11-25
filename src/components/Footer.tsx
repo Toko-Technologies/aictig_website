@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// Transparent variant with white lettering, made for the dark footer.
-import aictigLogo from '../img/aictig_logo_dark.png';
+// Transparent variant with white lettering, made for the dark footer
+// (WebP at twice the displayed size; the original PNG is aictig_logo_dark.png).
+import aictigLogo from '../img/aictig_logo_dark.webp';
 import { getSocialLinks } from '../utils/socialLinks';
 import { getSiteSettings } from '../content/siteContent';
 
@@ -33,8 +34,8 @@ export default function Footer() {
             <img
               src={aictigLogo}
               alt="AICTiG Logo"
-              width={348}
-              height={498}
+              width={157}
+              height={224}
               loading="lazy"
               className="h-24 md:h-28 w-auto mb-4"
               onError={(e) => {

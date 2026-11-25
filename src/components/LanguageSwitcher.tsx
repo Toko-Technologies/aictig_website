@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { LanguageIcon, ChevronDownIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { changeLanguage as switchLanguage, loadLanguage } from '../i18n';
 
 const languages = [
   { code: 'en', name: 'English', nativeName: 'English' },
@@ -19,7 +20,7 @@ export default function LanguageSwitcher() {
   const currentLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0];
   
   const changeLanguage = (code: string) => {
-    i18n.changeLanguage(code);
+    void switchLanguage(code);
   };
   
   return (
@@ -49,6 +50,8 @@ export default function LanguageSwitcher() {
                 {({ active }: { active: boolean }) => (
                   <button
                     onClick={() => changeLanguage(lang.code)}
+                    onMouseEnter={() => loadLanguage(lang.code).catch(() => {})}
+                    onFocus={() => loadLanguage(lang.code).catch(() => {})}
                     className={`${
                       active ? 'bg-neutral-100 text-neutral-900' : 'text-neutral-700'
                     } ${

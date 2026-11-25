@@ -4,9 +4,11 @@ import App from './App';
 import './index.css';
 import { trackWebVital } from './utils/analytics';
 import { loadSiteContent } from './content/siteContent';
+import { INITIAL_LANGUAGE, loadLanguage } from './i18n';
 
-// Apply texts and settings from the admin dashboard before the first render.
-loadSiteContent().finally(() => {
+// Before the first render: apply texts and settings from the admin dashboard,
+// and download the visitor's language if it is not English (both in parallel).
+Promise.allSettled([loadSiteContent(), loadLanguage(INITIAL_LANGUAGE)]).finally(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <App />

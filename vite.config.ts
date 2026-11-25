@@ -29,6 +29,19 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // One file per language (all its namespaces together), loaded on demand
+        // by src/i18n/index.ts. English stays in the main bundle.
+        manualChunks(id) {
+          const m = id.match(/[\\/]i18n[\\/]locales[\\/]([a-z]{2})[\\/]/);
+          if (m && m[1] !== 'en') return `locale-${m[1]}`;
+          return undefined;
+        },
+      },
+    },
+  },
   preview: {
     allowedHosts: ['aictig.org', 'www.aictig.org'],
   },

@@ -37,7 +37,7 @@ function ProfileSection({
   children: ReactNode;
 }) {
   return (
-    <Disclosure as="div" defaultOpen={defaultOpen} className="bg-white rounded-lg shadow-md border border-neutral-200 overflow-hidden">
+    <Disclosure as="div" defaultOpen={defaultOpen} className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
       {({ open }) => (
         <>
           <Disclosure.Button className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left hover:bg-neutral-50 transition-colors focus-ring">
@@ -142,11 +142,11 @@ export default function Expert() {
         </div>
 
         {/* Hero */}
-        <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-12 md:py-20">
+        <section className="bg-neutral-50 border-b border-neutral-200 py-12 md:py-16">
           <div className="container-custom">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
               <div className="flex justify-center md:justify-start">
-                <div className="w-56 md:w-full max-w-xs aspect-[4/5] rounded-lg shadow-lg overflow-hidden bg-neutral-200 ring-4 ring-white">
+                <div className="w-56 md:w-full max-w-xs aspect-[4/5] rounded-xl border border-neutral-200 overflow-hidden bg-neutral-200">
                   <ExpertPhoto member={expert} eager />
                 </div>
               </div>

@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MagnifyingGlassIcon, XMarkIcon, Squares2X2Icon, ListBulletIcon } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
 import FilterSidebar from '../components/FilterSidebar';
 import PolicyCard from '../components/PolicyCard';
 import Pagination from '../components/Pagination';
@@ -234,12 +235,9 @@ export default function Repository() {
   return (
     <>
       <Seo title={t('repo:meta.title')} description={t('repo:meta.description')} />
-      <main className="bg-neutral-50 min-h-screen py-16">
-        <div className="container-custom">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-neutral-900 mb-4">{t('repo:title')}</h1>
-            <p className="text-lg text-neutral-600 max-w-3xl">{t('repo:subtitle')}</p>
-          </div>
+      <main className="bg-neutral-50 min-h-screen">
+        <PageHeader title={t('repo:title')} subtitle={t('repo:subtitle')} />
+        <div className="container-custom py-10 md:py-12">
 
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-8">
             <form onSubmit={handleSearch} className="w-full md:max-w-2xl">

@@ -95,7 +95,7 @@ export default function PublicationDetail() {
             {t('pubs:backToPublications', 'Back to Publications')}
           </Link>
 
-          <article className="bg-white rounded-lg shadow-md overflow-hidden">
+          <article className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
             {/* Featured image */}
             {publication.cover && (
               <div className="aspect-[21/9] overflow-hidden bg-neutral-200">

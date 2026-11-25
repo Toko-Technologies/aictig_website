@@ -5,8 +5,9 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getSocialLinks } from '../utils/socialLinks';
+import { prefetchPage } from '../pages/loaders';
 import { fetchLatestUpdates, fetchAllDocuments, fetchPublications, fetchNewsArticles } from '../utils/content';
 import type { Policy, Publication, NewsArticle } from '../types';
 
@@ -145,7 +146,21 @@ export default function Header() {
     { name: t('navigation.news'), href: '/news' },
     { name: t('navigation.contact'), href: '/contact' },
   ];
-  
+
+  // A section stays highlighted on its sub-pages too (a policy is part of
+  // Repository, an expert's profile is part of About).
+  const { pathname } = useLocation();
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    if (href === '/about' && pathname.startsWith('/experts/')) return true;
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+  const prefetchProps = (href: string) => ({
+    onMouseEnter: () => prefetchPage(href),
+    onFocus: () => prefetchPage(href),
+    onTouchStart: () => prefetchPage(href),
+  });
+
   return (
     <>
       {/* Search Modal — portaled to body so it escapes the sticky header */}
@@ -333,15 +348,24 @@ export default function Header() {
               
               {/* Desktop Navigation */}
               <nav className="hidden lg:flex lg:space-x-1" aria-label="Main navigation">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors focus-ring"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                {navigation.map((item) => {
+                  const active = isActive(item.href);
+                  return (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      aria-current={active ? 'page' : undefined}
+                      {...prefetchProps(item.href)}
+                      className={`px-3 py-2 text-sm rounded-md transition-colors focus-ring ${
+                        active
+                          ? 'font-semibold text-primary-700 bg-primary-50'
+                          : 'font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                })}
               </nav>
               
               {/* Search & Language Switcher */}
@@ -374,16 +398,25 @@ export default function Header() {
           {/* Mobile menu */}
           <Disclosure.Panel className="lg:hidden border-t border-neutral-200 bg-white" onClick={() => close()}>
             <div className="space-y-1 px-4 pb-3 pt-2" onClick={(e) => e.stopPropagation()}>
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => close()}
-                  className="block px-3 py-2 text-base font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 rounded-md"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => close()}
+                    aria-current={active ? 'page' : undefined}
+                    {...prefetchProps(item.href)}
+                    className={`block px-3 py-2 text-base rounded-md ${
+                      active
+                        ? 'font-semibold text-primary-700 bg-primary-50'
+                        : 'font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
               
               {/* Social Media Icons - Mobile */}
               <div className="pt-4 mt-4 border-t border-neutral-200">

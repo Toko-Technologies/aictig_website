@@ -10,6 +10,7 @@ import {
   BeakerIcon,
 } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
 import ExpertCard from '../components/ExpertCard';
 import { useTeam } from '../content/team';
 
@@ -53,63 +54,47 @@ export default function About() {
         description={t('about:meta.description')}
       />
       <main className="bg-neutral-50 min-h-screen">
-        {/* Hero section */}
-        <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-20">
-          <div className="container-custom">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {t('about:hero.title')}
-            </h1>
-            <p className="text-xl text-neutral-50 max-w-3xl leading-relaxed">
-              {t('about:hero.subtitle')}
-            </p>
-          </div>
-        </section>
+        <PageHeader title={t('about:hero.title')} subtitle={t('about:hero.subtitle')} />
 
         {/* About Section */}
-        <section className="py-16">
+        <section className="py-16 md:py-20 bg-white">
           <div className="container-custom">
-            <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
-              <div className="prose prose-lg max-w-none text-neutral-700 space-y-4">
-                <p className="leading-relaxed">
-                  {t('about:about.paragraph2')}
-                </p>
-                <p className="leading-relaxed">
-                  {t('about:about.paragraph3')}
-                </p>
-                <p className="leading-relaxed font-medium">
-                  {t('about:about.incorporation')}
-                </p>
-              </div>
+            <div className="max-w-4xl space-y-5 text-lg leading-relaxed text-neutral-700">
+              <p>{t('about:about.paragraph2')}</p>
+              <p>{t('about:about.paragraph3')}</p>
+              <p className="border-s-4 border-primary-500 ps-4 font-medium text-neutral-900">
+                {t('about:about.incorporation')}
+              </p>
             </div>
           </div>
         </section>
 
         {/* Vision & Mission */}
-        <section className="py-16 bg-white">
+        <section className="py-16 md:py-20">
           <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
               {/* Vision */}
-              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-lg shadow-md p-8 border border-primary-100">
-                <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center mb-4">
-                  <GlobeAltIcon className="w-6 h-6 text-white" />
+              <div className="rounded-xl border border-neutral-200 bg-white p-8">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary-600">
+                  <GlobeAltIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+                <h2 className="mb-3 text-2xl font-bold text-neutral-900">
                   {t('about:vision.title')}
                 </h2>
-                <p className="text-neutral-700 leading-relaxed text-lg">
+                <p className="text-lg leading-relaxed text-neutral-700">
                   {t('about:vision.description')}
                 </p>
               </div>
 
               {/* Mission Header */}
-              <div className="bg-gradient-to-br from-secondary-50 to-accent-50 rounded-lg shadow-md p-8 border border-secondary-100">
-                <div className="w-12 h-12 bg-secondary-600 rounded-lg flex items-center justify-center mb-4">
-                  <LightBulbIcon className="w-6 h-6 text-white" />
+              <div className="rounded-xl border border-neutral-200 bg-white p-8">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-secondary-600">
+                  <LightBulbIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+                <h2 className="mb-3 text-2xl font-bold text-neutral-900">
                   {t('about:mission.title')}
                 </h2>
-                <p className="text-neutral-700 leading-relaxed">
+                <p className="leading-relaxed text-neutral-700">
                   {t('about:mission.intro')}
                 </p>
               </div>
@@ -118,17 +103,14 @@ export default function About() {
             {/* Mission Items */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {missionItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg shadow-md p-6 border border-neutral-200 hover:shadow-lg transition-shadow"
-                >
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-primary-600" />
+                <div key={index} className="rounded-xl border border-neutral-200 bg-white p-6">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary-50">
+                    <item.icon className="h-6 w-6 text-primary-600" aria-hidden="true" />
                   </div>
-                  <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                  <h3 className="mb-2 text-lg font-semibold text-neutral-900">
                     {item.title}
                   </h3>
-                  <p className="text-neutral-600 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-neutral-600">
                     {item.description}
                   </p>
                 </div>
@@ -138,15 +120,15 @@ export default function About() {
         </section>
 
         {/* Team section */}
-        <section id="team" className="py-16 bg-neutral-100 scroll-mt-24">
+        <section id="team" className="py-16 md:py-20 bg-white scroll-mt-24">
           <div className="container-custom">
-            <h2 className="text-3xl font-bold text-neutral-900 mb-4 text-center">
+            <h2 className="mb-4 text-2xl font-bold text-neutral-900 md:text-3xl">
               {t('about:team.title')}
             </h2>
-            <p className="text-lg text-neutral-700 leading-relaxed max-w-3xl mx-auto text-center mb-12">
+            <p className="mb-10 max-w-3xl text-lg leading-relaxed text-neutral-700">
               {t('about:team.intro')}
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {(team ?? []).map((expert) => (
                 <ExpertCard key={expert.slug} expert={expert} />
               ))}

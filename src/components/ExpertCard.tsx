@@ -10,10 +10,10 @@ export default function ExpertCard({ expert }: { expert: Expert }) {
   return (
     <Link
       to={`/experts/${expert.slug}`}
-      className="group flex flex-col bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow focus-ring"
+      className="group flex flex-col bg-white rounded-xl border border-neutral-200 overflow-hidden transition hover:border-primary-300 hover:shadow-md focus-ring"
     >
       <div className="aspect-[4/5] overflow-hidden bg-neutral-200">
-        <ExpertPhoto member={expert} className="group-hover:scale-105 transition-transform duration-300" />
+        <ExpertPhoto member={expert} />
       </div>
       <div className="p-6 flex flex-col flex-1">
         <h3 className="text-xl font-bold text-neutral-900 mb-1 group-hover:text-primary-600 transition-colors">

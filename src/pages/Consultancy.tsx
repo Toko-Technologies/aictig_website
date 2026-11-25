@@ -11,6 +11,7 @@ import {
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
 
 export default function Consultancy() {
   const { t } = useTranslation(['common']);
@@ -135,39 +136,29 @@ export default function Consultancy() {
         description={t('consultancy.meta.description')}
       />
       <main className="bg-neutral-50 min-h-screen">
-        {/* Hero section */}
-        <section className="bg-gradient-to-br from-secondary-600 to-primary-600 text-white py-20">
-          <div className="container-custom">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {t('consultancy.hero.title')}
-            </h1>
-            <p className="text-xl text-neutral-50 max-w-3xl leading-relaxed">
-              {t('consultancy.hero.subtitle')}
-            </p>
-          </div>
-        </section>
+        <PageHeader title={t('consultancy.hero.title')} subtitle={t('consultancy.hero.subtitle')} />
 
         {/* Services Overview */}
-        <section className="py-16">
+        <section className="py-16 md:py-20">
           <div className="container-custom">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-neutral-900 mb-4">
+            <div className="mb-10">
+              <h2 className="mb-3 text-2xl font-bold text-neutral-900 md:text-3xl">
                 {t('consultancy.overview.title')}
               </h2>
-              <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+              <p className="max-w-3xl text-lg text-neutral-600">
                 {t('consultancy.overview.description')}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className="bg-white rounded-lg shadow-md p-8 border border-neutral-200 hover:shadow-lg transition-shadow"
+                  className="rounded-xl border border-neutral-200 bg-white p-8"
                 >
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <service.icon className="w-6 h-6 text-primary-600" />
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary-50">
+                      <service.icon className="h-6 w-6 text-primary-600" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold text-neutral-900 mb-2">
@@ -180,7 +171,8 @@ export default function Consultancy() {
                         {service.features.map((feature, index) => (
                           <li key={index} className="flex items-start text-sm text-neutral-600">
                             <svg
-                              className="w-5 h-5 text-primary-600 mr-2 flex-shrink-0 mt-0.5"
+                              className="w-5 h-5 text-primary-600 me-2 flex-shrink-0 mt-0.5"
+                              aria-hidden="true"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -205,61 +197,47 @@ export default function Consultancy() {
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-16 bg-white">
+        <section className="py-16 md:py-20 bg-white">
           <div className="container-custom">
-            <h2 className="text-3xl font-bold text-neutral-900 mb-8 text-center">
+            <h2 className="mb-10 text-2xl font-bold text-neutral-900 md:text-3xl">
               {t('consultancy.whyChoose.title')}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AcademicCapIcon className="w-8 h-8 text-primary-600" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { Icon: AcademicCapIcon, tile: 'bg-primary-50 text-primary-600', key: 'expertise' },
+                { Icon: MapIcon, tile: 'bg-secondary-50 text-secondary-600', key: 'regional' },
+                { Icon: ChartBarIcon, tile: 'bg-accent-50 text-accent-700', key: 'evidenceBased' },
+              ].map(({ Icon, tile, key }) => (
+                <div key={key} className="rounded-xl border border-neutral-200 bg-white p-8">
+                  <div className={`mb-5 flex h-12 w-12 items-center justify-center rounded-lg ${tile}`}>
+                    <Icon className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-neutral-900">
+                    {t(`consultancy.whyChoose.${key}.title`)}
+                  </h3>
+                  <p className="leading-relaxed text-neutral-600">
+                    {t(`consultancy.whyChoose.${key}.description`)}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold text-neutral-900 mb-2">
-                  {t('consultancy.whyChoose.expertise.title')}
-                </h3>
-                <p className="text-neutral-600">
-                  {t('consultancy.whyChoose.expertise.description')}
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MapIcon className="w-8 h-8 text-secondary-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-neutral-900 mb-2">
-                  {t('consultancy.whyChoose.regional.title')}
-                </h3>
-                <p className="text-neutral-600">
-                  {t('consultancy.whyChoose.regional.description')}
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ChartBarIcon className="w-8 h-8 text-accent-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-neutral-900 mb-2">
-                  {t('consultancy.whyChoose.evidenceBased.title')}
-                </h3>
-                <p className="text-neutral-600">
-                  {t('consultancy.whyChoose.evidenceBased.description')}
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-primary-600 to-secondary-600 text-white">
-          <div className="container-custom text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              {t('consultancy.cta.title')}
-            </h2>
-            <p className="text-lg text-neutral-50 max-w-2xl mx-auto mb-8">
-              {t('consultancy.cta.description')}
-            </p>
+        <section className="bg-primary-700 py-16 text-white md:py-20">
+          <div className="container-custom flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold md:text-3xl">
+                {t('consultancy.cta.title')}
+              </h2>
+              <p className="mt-3 text-lg leading-relaxed text-primary-50">
+                {t('consultancy.cta.description')}
+              </p>
+            </div>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white bg-transparent hover:bg-white hover:text-primary-600 transition-all"
+              className="inline-flex flex-shrink-0 items-center justify-center self-start rounded-lg bg-white px-6 py-3 font-semibold text-primary-700 transition-colors hover:bg-primary-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-700 lg:self-auto"
             >
               {t('consultancy.cta.button')}
             </Link>

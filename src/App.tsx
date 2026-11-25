@@ -1,29 +1,29 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import './i18n';
 import { UiProvider } from './context/UiContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
 import Home from './pages/Home';
+import { pageLoaders, prefetchAllPages } from './pages/loaders';
 import { trackPageView, initAnalytics } from './utils/analytics';
 import ErrorBoundary from './components/ErrorBoundary';
 
-// Lazy load pages for better performance
-import { lazy, Suspense } from 'react';
-const Repository = lazy(() => import('./pages/Repository'));
-const PolicyDetail = lazy(() => import('./pages/PolicyDetail'));
-const Publications = lazy(() => import('./pages/Publications'));
-const PublicationDetail = lazy(() => import('./pages/PublicationDetail'));
-const Gallery = lazy(() => import('./pages/Gallery'));
-const News = lazy(() => import('./pages/News'));
-const NewsDetail = lazy(() => import('./pages/NewsDetail'));
-const About = lazy(() => import('./pages/About'));
-const Expert = lazy(() => import('./pages/Expert'));
-const FocusAreas = lazy(() => import('./pages/FocusAreas'));
-const Consultancy = lazy(() => import('./pages/Consultancy'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Legal = lazy(() => import('./pages/Legal'));
+// Pages are loaded on demand; see pages/loaders.ts for the prefetching.
+const Repository = lazy(pageLoaders.repository);
+const PolicyDetail = lazy(pageLoaders.policyDetail);
+const Publications = lazy(pageLoaders.publications);
+const PublicationDetail = lazy(pageLoaders.publicationDetail);
+const Gallery = lazy(pageLoaders.gallery);
+const News = lazy(pageLoaders.news);
+const NewsDetail = lazy(pageLoaders.newsDetail);
+const About = lazy(pageLoaders.about);
+const Expert = lazy(pageLoaders.expert);
+const FocusAreas = lazy(pageLoaders.focusAreas);
+const Consultancy = lazy(pageLoaders.consultancy);
+const Contact = lazy(pageLoaders.contact);
+const Legal = lazy(pageLoaders.legal);
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 
 // Initialize Matomo analytics (once, on app boot)
@@ -43,13 +43,24 @@ function ScrollToTop() {
   return null;
 }
 
+/** Once the first page has fully loaded, fetch the other pages' code in the background. */
+function PrefetchPages() {
+  useEffect(() => {
+    if (document.readyState === 'complete') {
+      prefetchAllPages();
+      return;
+    }
+    window.addEventListener('load', prefetchAllPages, { once: true });
+    return () => window.removeEventListener('load', prefetchAllPages);
+  }, []);
+  return null;
+}
+
+/** Shown only when a page is opened directly and its code is still downloading. */
 function LoadingFallback() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-        <p className="text-neutral-600">Loading...</p>
-      </div>
+    <div className="flex min-h-[60vh] items-center justify-center" role="status" aria-label="Loading">
+      <div className="h-10 w-10 animate-spin rounded-full border-2 border-neutral-200 border-t-primary-600" />
     </div>
   );
 }
@@ -72,6 +83,7 @@ function AppRoutes() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <PrefetchPages />
       <Header />
       <div id="main-content" className="flex-grow">
         <ErrorBoundary>
@@ -81,7 +93,6 @@ function AppRoutes() {
             <Route path="/about" element={<About />} />
             <Route path="/experts/:slug" element={<Expert />} />
             <Route path="/focus-areas" element={<FocusAreas />} />
-            <Route path="/repository/:id" element={<PolicyDetail />} />
             <Route path="/consultancy" element={<Consultancy />} />
             <Route path="/repository" element={<Repository />} />
             <Route path="/repository/:id" element={<PolicyDetail />} />
@@ -119,7 +130,9 @@ function NotFound() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    // v7_startTransition: when a link is clicked, the current page stays on
+    // screen until the next one is ready, instead of flashing a spinner.
+    <BrowserRouter future={{ v7_startTransition: true }}>
       <UiProvider>
         <ScrollToTop />
         <AppRoutes />

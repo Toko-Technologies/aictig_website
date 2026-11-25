@@ -81,7 +81,19 @@ app.use('/api', (req, res) => res.status(404).json({ error: 'Not found.' }));
 // --- Static files from Vite build ---
 // index: false so "/" goes through the SPA handler below, which adds the
 // edited texts to the page.
-app.use(express.static(path.join(__dirname, 'dist'), { index: false }));
+// Files in /assets have a content hash in their name and never change, so
+// browsers may keep them for a year without asking again. Other files (flags,
+// team photos, logos) are kept for a day.
+app.use(express.static(path.join(__dirname, 'dist'), {
+  index: false,
+  setHeaders(res, filePath) {
+    const rel = path.relative(path.join(__dirname, 'dist'), filePath).split(path.sep).join('/');
+    let value = 'public, max-age=86400';
+    if (rel.startsWith('assets/')) value = 'public, max-age=31536000, immutable';
+    else if (rel.endsWith('.html')) value = 'no-cache';
+    res.setHeader('Cache-Control', value);
+  },
+}));
 
 // ─── SPA fallback (client-side routing) ──────────────────────────
 const INDEX_FILE = path.join(__dirname, 'dist', 'index.html');

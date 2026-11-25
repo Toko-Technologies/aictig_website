@@ -10,6 +10,7 @@ import {
   PaperAirplaneIcon,
 } from '@heroicons/react/24/outline';
 import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
 import { getSocialLinks } from '../utils/socialLinks';
 import { getSiteSettings } from '../content/siteContent';
 
@@ -149,13 +150,7 @@ export default function Contact() {
         description="Get in touch with the African Institute for Cybersecurity & Tele-Informatics Governance. Contact us for research collaboration, consultancy, or partnership inquiries."
       />
       <main className="bg-neutral-50 min-h-screen">
-        {/* Banner */}
-        <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 md:py-20">
-          <div className="container-custom">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('title')}</h1>
-            <p className="text-xl text-neutral-50 max-w-3xl leading-relaxed">{t('subtitle')}</p>
-          </div>
-        </section>
+        <PageHeader title={t('title')} subtitle={t('subtitle')} />
 
         <section className="py-12 md:py-16">
           <div className="container-custom">

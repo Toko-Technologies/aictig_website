@@ -1,5 +1,6 @@
 {
   "hero": {
+    "eyebrow": "Utafiti · Sera · Kujenga Uwezo",
     "title": "Taasisi ya Kiafrika ya Usalama wa Mtandao \nna Utawala wa Tele-Informatics",
     "subtitle": "Kuendeleza usalama wa mtandao na utawala wa TEHAMA barani Afrika kupitia utafiti, uchambuzi wa sera na ujenzi wa uwezo",
     "cta": {
@@ -39,5 +40,13 @@
     "policies": "Sera Zilizoorodheshwa",
     "languages": "Lugha Zinazotumika",
     "publications": "Machapisho ya Utafiti"
+  },
+  "panel": {
+    "title": "Ndani ya hifadhi",
+    "themes": "Mada zinazoshughulikiwa zaidi"
+  },
+  "cta": {
+    "title": "Unaunda sera za kidijitali barani Afrika?",
+    "text": "Shirikiana na wataalamu wetu katika ushirikiano wa utafiti, programu za mafunzo na ushauri wa sera kwa serikali na mashirika."
   }
 }

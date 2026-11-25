@@ -10,7 +10,7 @@ export default function PublicationCard({ publication }: PublicationCardProps) {
   return (
     <Link
       to={`/publications/${publication.slug}`}
-      className="card overflow-hidden hover:shadow-xl transition-shadow block"
+      className="card overflow-hidden block"
     >
       <article>
         <div className="aspect-video bg-neutral-200 relative">
